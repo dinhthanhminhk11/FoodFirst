@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@id/end"
+        app:layoutDuringTransition="honorRequest"
+        app:duration="1000">
+        <OnSwipe
+            app:dragDirection="dragDown"
+
+            app:touchAnchorSide="bottom"
+            app:touchRegionId="@id/layout_prompt"
+            app:touchAnchorId="@id/layout_prompt" />
+    </Transition>
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/layout_prompt"
+            android:layout_marginStart="@dimen/padding_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_item"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/layout_prompt"
+            android:layout_marginStart="@dimen/padding_item"
+            android:layout_marginEnd="@dimen/padding_item"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/size_10"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </ConstraintSet>
+
+
+</MotionScene>
