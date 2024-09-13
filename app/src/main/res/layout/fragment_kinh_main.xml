@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/motion_layout"
-    tools:context=".presentation.feature.m00_main.M00MainFragment"
+    tools:context=".presentation.feature.m00_main.KingMainFragment"
     app:layoutDescription="@xml/m01_fragment_home_scene">
 
     <androidx.viewpager2.widget.ViewPager2

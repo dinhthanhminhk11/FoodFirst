@@ -1,11 +1,17 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
+
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.cacheFixPlugin)
+    alias(libs.plugins.firebase.crashlytics)
+//    alias(libs.plugins.gms.googleServices)
     alias(libs.plugins.android.dagger.hilt)
+    alias(libs.plugins.ksp)
     kotlin("kapt")
 }
 
@@ -66,9 +72,16 @@ android {
     }
 
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        packagingOptions.resources.excludes += setOf(
+            // Exclude AndroidX version files
+            "META-INF/*.version",
+            // Exclude consumer proguard files
+            "META-INF/proguard/*",
+            // Exclude the Firebase/Fabric/other random properties files
+            "/*.properties",
+            "fabric/*.properties",
+            "META-INF/*.properties",
+        )
     }
 
     kapt {
@@ -91,55 +104,80 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.viewpager2)
-    implementation(libs.material)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation("androidx.compose.runtime:runtime:1.5.1")
+    // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    androidTestImplementation(libs.androidx.test.espresso)
 
-    //dagger-hilt
-    implementation(libs.dagger.hilt)
+    implementation(libs.androidx.activity.activity)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.legacy.support.v4)
+    // firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.dynamic.links)
+    // hilt
+    implementation(libs.dagger.hilt.library)
+    //TODO hilt not yet support KSP, after support, changed to ksp
     kapt(libs.dagger.hilt.compiler)
 
-    //gson
-    implementation(libs.gson)
-
-    //OkHttp
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging.interceptor)
-
-    //chucker
-    debugImplementation(libs.chucker.logging.debug)
-    releaseImplementation(libs.chucker.logging.release)
-
-    //retrofit
+    // api
     implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.json)
     implementation(libs.retrofit.converter.scalars)
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logging.interceptor)
 
-    //coroutine
-    implementation(libs.coroutine.android)
-    implementation(libs.coroutine.core)
-
-    //timber log
-    implementation(libs.timber.log)
-
-    //ssp, sdp
-    implementation(libs.ssp.android)
+    implementation(libs.glide)
+    implementation(libs.eventbus)
+    //ui library
+    implementation(libs.shimmer)
+    implementation(libs.circleindicator)
+    implementation(libs.dotsindicator)
+//    implementation(libs.viewPagerIndicator)
+    implementation(libs.shortcutBadger)
+//    implementation(libs.android.simple.tooltip)
     implementation(libs.sdp.android)
+    implementation(libs.ssp.android)
+    // socket
+    implementation("io.socket:socket.io-client:1.0.0") {
+        exclude("org.json", "json")
+    }
+
+    //sign in google
+//    implementation(libs.play.services.auth)
+    //sign in facebook
+    implementation(libs.facebook.android.sdk)
+    //zalo sdk
+    implementation("me.zalo:sdk-core:+")
+    implementation("me.zalo:sdk-auth:+")
+    implementation("me.zalo:sdk-openapi:+")
+    // image picker
+//    implementation(libs.android.image.picker)
+
+    // logging
+//    implementation(libs.track)
+//    implementation(libs.protobuf.lite)
+    implementation(libs.timber)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.release)
+
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation(libs.leakCanary)
 }
+

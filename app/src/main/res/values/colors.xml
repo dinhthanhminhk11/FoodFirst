@@ -1,13 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    //app
     <color name="primary">#0397D3</color>
+    <color name="color_primary_alpha_10">#1A0397D3</color>
+    <color name="active">@color/primary</color>
+    <color name="color_app">#0397D3</color>
+    <color name="primary_light">#C6EBF9</color>
+
+    <color name="color_black">#000000</color>
+    <color name="color_black_1111">#111111</color>
+    <color name="color_black_33">#333333</color>
+    <color name="color_black_22">#222222</color>
+    <color name="color_black_45">#454545</color>
+    <color name="color_black_55">#555555</color>
+    <color name="color_black_alpha_85">#D9000000</color>
+    <color name="color_black_29">#292929</color>
+    <color name="color_black_f4">#F4F6FA</color>
+
+    <color name="color_white">#FFFFFFFF</color>
+    <color name="color_white_alpha_10">#1AFFFFFF</color>
+    <color name="color_white_alpha_20">#33FFFFFF</color>
+
+    <color name="color_pink">#F8EFFF</color>
+    <color name="gray_8a">#8A8A8A</color>
+    <color name="gray_88">#888888</color>
+    <color name="gray_F6F6">#F6F6F6</color>
+    <color name="gray_e5">#E5E5E5</color>
+    <color name="gray_f1">#F1F1F1</color>
+    <color name="color_gray_aa">#AAAAAA</color>
+    <color name="gray_FA">#FAFAFA</color>
+    <color name="gray">#ffc5c5c5</color>
+    <color name="gray_EEEE">#EEEEEE</color>
+    <color name="color_gray_8B8B">#8B8B8B</color>
+    <color name="gray_EBEB">#EBEBEB</color>
+    <color name="gray_EBEB_30">#4DEBEBEB</color>
+    <color name="purple_sea_game">#38224D</color>
+
+    <color name="color_blue">#0098D1</color>
+
+    <!--    user-->
+    // light mode
+    <color name="color_text_title">@color/color_black_29</color>
+    <color name="color_text_white">@color/color_white</color>
+    <color name="color_text_primary">@color/primary</color>
+    <color name="color_text_subtitle">@color/color_black_45</color>
+    <color name="color_text_h2_native">@color/color_black_33</color>
+    <color name="color_text_p_native">@color/color_black_33</color>
+    <color name="color_text_photo_title">@color/color_black_55</color>
+    <color name="color_text_photo_subtitle">@color/gray_88</color>
+    <color name="color_text_subtitle_news_relation">@color/color_black_29</color>
+    <color name="color_text_media_detail_body">#80FFFFFF</color>
+    <color name="color_text_hint_notify">#8E8E8E</color>
+    <color name="color_text_title_notify">#161616</color>
+    <color name="color_text_sub_title_item_multimedia">@color/color_black_55</color>
+    <color name="color_text_black_33_white">@color/color_black_33</color>
+    <color name="color_text_no_data">#555555</color>
+    <color name="color_text_8b_aa">@color/color_gray_8B8B</color>
+
+    <color name="color_background_white_black">@color/white</color>
+    <color name="color_background_white_black33">@color/white</color>
+    <color name="color_background_white_alpha_10">@color/gray_FA</color>
+    <color name="color_background_news_category">@color/gray_FA</color>
+    <color name="color_background_news_relation">@color/gray_FA</color>
+    <color name="color_background_news_360">@color/primary_light</color>
+    <color name="color_background_detail_tag">@color/gray_F6F6</color>
+    <color name="color_background_detail_share">@color/gray_f1</color>
+
+    <color name="color_background_tab_profile">@color/transparent</color>
+    <color name="color_background_f1_black">@color/gray_f1</color>
+
+    <color name="color_red">#F52943</color>
+    <color name="color_status_bar_white_black">@color/color_white</color>
+    <color name="color_line">#EBEBEB</color>
+    <color name="color_dot_unselected">#D9D9D9</color>
+    <color name="color_dot_selected">@color/primary</color>
+    <color name="color_bg_line_user">#8B8B8B</color>
+    <color name="color_drawable_gray">@color/color_gray_8B8B</color>
+    <color name="color_drawable_333">@color/color_black_33</color>
+    <color name="color_stroke_track">#EBEBEB</color>
+    <color name="color_solid_track">#D9D9D9</color>
+
+    <color name="placeholder_bg">#dddddd</color>
+
+    <color name="transparent_50">#80000000</color>
+
+    <color name="bg_detail_comment">#0098D1</color>
+    <color name="color_bg_poll_box">#FCFAF6</color>
+    <color name="color_background_category_tag">@color/gray_f1</color>
+    <color name="color_background_btn_edit">@color/gray_e5</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="notify_background_default">#F4F6FA</color>
+    <color name="color_background_view_space">#E0E0E0</color>
+    <color name="color_black_alpha_5">#0D000000</color>
+    <color name="color_delete_acc">#F84A4A</color>
+    <color name="color_login_background_icon">#F6F6F6</color>
+
+    <color name="color_content_native">#868180</color>
+    <color name="colorBgTrend">#C90000</color>
+
+    <color name="color_caption">#ababab</color>
+    <color name="white_trns_58">#45ffffff</color>
+    <color name="color_background_gray">@color/gray_f1</color>
+    <color name="indicator_unselect">#E5E5E5</color>
+    <color name="color_mark_read">#C2C2C2</color>
+
+    <color name="background_media_detail">#022E3F</color>
+
+    //color view noti os
+    <color name="color_text_appname_os">#555555</color>
+    <color name="color_text_time_os">#aaaaaa</color>
+    <color name="color_text_title_os">@color/color_black_1111</color>
+    <color name="color_blue_facebook">#1877F2</color>
+
+
+    <color name="color_blue_143CDB">#143CDB</color>
+    <color name="color_yellow_F9BF4B">#F9BF4B</color>
 </resources>

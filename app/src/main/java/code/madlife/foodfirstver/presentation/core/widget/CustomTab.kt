@@ -28,7 +28,7 @@ class CustomTab(context: Context, attributeSet: AttributeSet? = null) :
             R.color.primary
 
         } else {
-            R.color.black
+            R.color.color_black
         }
         text.setTextColor(ContextCompat.getColor(context, color))
         icon.setImageDrawable(if (selected) drawableSelected else drawableNormal)
