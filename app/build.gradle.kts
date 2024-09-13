@@ -38,6 +38,11 @@ android {
             useSupportLibrary = true
         }
         archivesName.set("FoodFirst-($versionCode-$versionName)${getDate()}")
+
+        ndk {
+            abiFilters += listOf("x86", "x86_64", "armeabi", "armeabi-v7a",
+                "arm64-v8a")
+        }
     }
 
     buildTypes {
@@ -101,6 +106,15 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
         }
     }
+    sourceSets {
+        getByName("main") {
+            jni {
+                srcDirs("src\\main\\jni", "src\\main\\jni")
+            }
+        }
+    }
+
+
 }
 
 dependencies {
