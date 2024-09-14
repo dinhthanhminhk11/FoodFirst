@@ -107,6 +107,11 @@ class NavigationManager : OnBackStackChangedListener {
         }
     }
 
+//    @AnimRes enter: Int,
+//    @AnimRes exit: Int,
+//    @AnimRes popEnter: Int,
+//    @AnimRes popExit: Int
+
     fun openFragment(fragment: Fragment, isReplace: Boolean = false) {
         openFragment(fragment, isReplace, R.anim.slide_in_left, R.anim.opacity_1_to_0, 0, R.anim.slide_out_right)
     }

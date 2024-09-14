@@ -15,7 +15,6 @@ class MainActivity : BaseActivity(), FragmentManager.OnBackStackChangedListener 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        NavigationManager.getInstance().init(this, supportFragmentManager, R.id.fragment_container)
     }
 
     override fun onBackStackChanged() {

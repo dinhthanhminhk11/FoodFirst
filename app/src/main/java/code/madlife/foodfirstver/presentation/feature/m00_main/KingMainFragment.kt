@@ -11,30 +11,27 @@ import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.reduceDragSensitivity
 import code.madlife.foodfirstver.core.utils.PreferenceHelper
-import code.madlife.foodfirstver.databinding.FragmentKinhMainBinding
+import code.madlife.foodfirstver.databinding.FragmentKingMainBinding
 import code.madlife.foodfirstver.presentation.core.base.BaseTabFragment
 import code.madlife.foodfirstver.presentation.core.base_adapter.MyViewPagerAdapter
 import code.madlife.foodfirstver.presentation.core.common.Constants.TabMain.HOME_POSITION
 import code.madlife.foodfirstver.presentation.core.common.Constants.TabMain.MULTIMEDIA_POSITION
 import code.madlife.foodfirstver.presentation.core.utils.TimeUtils
 import code.madlife.foodfirstver.presentation.core.widget.CustomTab
-import code.madlife.foodfirstver.presentation.feature.m01.M01Fragment
-import code.madlife.foodfirstver.presentation.feature.m02.M02Fragment
-import code.madlife.foodfirstver.presentation.feature.m03.M03Fragment
-import code.madlife.foodfirstver.presentation.feature.m04.M04Fragment
-import code.madlife.foodfirstver.presentation.feature.m05.M05Fragment
+import code.madlife.foodfirstver.presentation.feature.fragment.HomeFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.LiveFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.NotificationFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.UserFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.VideoFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-
-// TODO: Rename parameter arguments, choose names that match
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import org.greenrobot.eventbus.EventBus
 
 
 @AndroidEntryPoint
 class KingMainFragment :
-    BaseTabFragment<FragmentKinhMainBinding>(FragmentKinhMainBinding::inflate) {
+    BaseTabFragment<FragmentKingMainBinding>(FragmentKingMainBinding::inflate) {
     data class MainTabData(
         @DrawableRes val icon: Int,
         @DrawableRes val iconSelected: Int,
@@ -42,19 +39,27 @@ class KingMainFragment :
     )
 
     private val listTab = listOf(
-        MainTabData(R.drawable.ic_tab_home, R.drawable.ic_tab_home_selected, R.string.tab_1),
-        MainTabData(R.drawable.ic_tab_for_you, R.drawable.ic_tab_for_you_selected, R.string.tab_2),
+        MainTabData(R.drawable.ic_tab_home, R.drawable.ic_tab_home_selected, R.string.home_title),
+        MainTabData(
+            R.drawable.baseline_video_camera_front_24_unselect,
+            R.drawable.baseline_video_camera_front_24,
+            R.string.live_title
+        ),
         MainTabData(
             R.drawable.ic_tab_multimedia,
             R.drawable.ic_tab_multimedia_selected,
-            R.string.tab_3
+            R.string.video_title
         ),
         MainTabData(
             R.drawable.ic_tab_notification,
             R.drawable.ic_tab_notification_selected,
-            R.string.tab_4
+            R.string.notification_title
         ),
-        MainTabData(R.drawable.ic_tab_menu, R.drawable.ic_tab_menu_selected, R.string.tab_5)
+        MainTabData(
+            R.drawable.baseline_person_24,
+            R.drawable.baseline_person_24_selected,
+            R.string.user_title
+        )
     )
 
     private var pagerAdapter: MyViewPagerAdapter<MainTabData, Fragment>? = null
@@ -63,11 +68,11 @@ class KingMainFragment :
     override fun initView() {
         pagerAdapter = MyViewPagerAdapter(this, listTab) { _, position ->
             when (position) {
-                Constants.TabMain.TAB_0 -> M01Fragment()
-                Constants.TabMain.TAB_1 -> M02Fragment()
-                Constants.TabMain.TAB_2 -> M03Fragment()
-                Constants.TabMain.TAB_3 -> M04Fragment()
-                else -> M05Fragment()
+                Constants.TabMain.HOME -> HomeFragment()
+                Constants.TabMain.LIVE -> LiveFragment()
+                Constants.TabMain.VIDEO -> VideoFragment()
+                Constants.TabMain.NOTIFICATION -> NotificationFragment()
+                else -> UserFragment()
             }
         }
         binding.pager.adapter = pagerAdapter

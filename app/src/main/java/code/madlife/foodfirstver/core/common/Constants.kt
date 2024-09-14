@@ -20,10 +20,10 @@ object Constants {
     }
 
     object TabMain {
-        const val TAB_0 = 0
-        const val TAB_1 = 1
-        const val TAB_2 = 2
-        const val TAB_3 = 3
-        const val TAB_4 = 4
+        const val HOME = 0
+        const val LIVE = 1
+        const val VIDEO = 2
+        const val NOTIFICATION = 3
+        const val USER = 4
     }
 }

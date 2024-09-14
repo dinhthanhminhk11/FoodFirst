@@ -20,12 +20,10 @@ abstract class BaseFragment<T: ViewBinding>(private val bindingInflater: (layout
 
     fun isFragmentFocusing(fragment: BaseFragment<*> = this): Boolean {
         val parentFragment = fragment.parentFragment
-        //if fragment current check is root(not in tab layout) -> cancel
         if (parentFragment == null)
             return NavigationManager.getInstance().getCurrentFragment() == fragment
         else {
             if (parentFragment is BaseTabFragment<*>) {
-                //parent fragment is opening === current fragment checking
                 return parentFragment.getViewPager()?.currentItem == fragment.tabPosition && isFragmentFocusing(parentFragment)
             }
         }

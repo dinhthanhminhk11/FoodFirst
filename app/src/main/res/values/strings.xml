@@ -1,14 +1,18 @@
 <resources>
     <string name="app_name">Food</string>
-    <string name="tab_1">Tab 1</string>
-    <string name="tab_2">Tab 2</string>
-    <string name="tab_3">Tab 3</string>
-    <string name="tab_4">Tab 4</string>
-    <string name="tab_5">Tab 5</string>
+    <string name="home_title">Home</string>
+    <string name="live_title">Live</string>
+    <string name="video_title">Video</string>
+    <string name="notification_title">Thông báo</string>
+    <string name="user_title">Tôi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_recently">Vừa xong</string>
     <string name="text_minute_ago">phút trước</string>
     <string name="text_hour_ago">giờ trước</string>
     <string name="text_day_ago">ngày trước</string>
+    <string name="login">Đăng nhập</string>
+    <string name="user_name">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="register">Đăng ký</string>
 </resources>

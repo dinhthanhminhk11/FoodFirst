@@ -95,15 +95,19 @@ android {
 
     flavorDimensions += "environment"
     productFlavors {
-        create("development") {
+        create("Boquan") {
             dimension = "environment"
-            manifestPlaceholders["appLabel"] = "Base Mvvm Debug"
+            manifestPlaceholders["appLabel"] = "Food App BoQuan"
             buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "KEY_128", "\"Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz\"")
+            buildConfigField("String", "IV_128", "\"foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz\"")
         }
-        create("production") {
+        create("Madlife") {
             dimension = "environment"
-            manifestPlaceholders["appLabel"] = "Base Mvvm"
+            manifestPlaceholders["appLabel"] = "Food App Madlife"
             buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "KEY_128", "\"Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz\"")
+            buildConfigField("String", "IV_128", "\"foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz\"")
         }
     }
     sourceSets {

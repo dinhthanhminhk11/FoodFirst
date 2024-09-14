@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
+import code.madlife.foodfirstver.BuildConfig
 import code.madlife.foodfirstver.encryption.Login
 import code.madlife.foodfirstver.encryption.LoginDev
 
@@ -18,15 +19,7 @@ import timber.log.Timber
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-
-        Login.init(
-            "Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz",
-            "foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz"
-        )
-
-        val inputDecryp = ""
-        val text = Login.decryptData("+0iSbuC3ONtR/hkziBYrOLEKrodqou3n628ADuw6q5IHKrUQr1mLplfHSE5urWKnkjUYKZf5Yks0Ut0uOTj1BabwxkH72FS/0amV1RWszz0=")
-        Log.e("MinhText", "text Decryp " + text)
+        Login.init(BuildConfig.KEY_128, BuildConfig.IV_128)
         ProcessLifecycleOwner.get().lifecycle.addObserver(defaultLifecycleObserver)
         Utility.setAppMode(Utility.isAppDarkMode())
     }

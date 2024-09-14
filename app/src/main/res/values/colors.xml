@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#0397D3</color>
+    <color name="primary">#EE4D2D</color>
     <color name="color_primary_alpha_10">#1A0397D3</color>
     <color name="active">@color/primary</color>
     <color name="color_app">#0397D3</color>
@@ -115,4 +115,7 @@
 
     <color name="color_blue_143CDB">#143CDB</color>
     <color name="color_yellow_F9BF4B">#F9BF4B</color>
+    <color name="color_orange">#EE4D2D</color>
+    <color name="color_DBE0E6">#DBE0E6</color>
+    <color name="color_494F67">#494F67</color>
 </resources>

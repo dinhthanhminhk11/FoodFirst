@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/kingMainFragment">
+
+    <fragment
+        android:id="@+id/kingMainFragment"
+        android:name="code.madlife.foodfirstver.presentation.feature.m00_main.KingMainFragment"
+        android:label="fragment_kinh_main"
+        tools:layout="@layout/fragment_king_main" >
+        <action
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/opacity_1_to_0"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_kingMainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="code.madlife.foodfirstver.presentation.feature.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>
