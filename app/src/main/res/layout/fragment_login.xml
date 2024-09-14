@@ -4,20 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".presentation.feature.fragment.LoginFragment">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/login"
+            app:titleTextAppearance="@style/ToolbarTextAppearanceNormal" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout"
         android:layout_marginHorizontal="@dimen/_16dp"
         android:layout_marginTop="@dimen/_20dp"
         android:orientation="vertical">
+
 
         <TextView
             style="@style/TextViewHeadline2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome Back"
+            android:text="Chào mừng trở lại"
             android:textColor="@color/black"
             android:textSize="@dimen/_20sp"
             tools:ignore="HardcodedText,SpUsage" />
@@ -27,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5dp"
-            android:text="Please enter your login information"
+            android:text="Nhập thông tin của bạn để tiếp tục"
             android:textColor="@color/color_494F67"
             android:textSize="@dimen/_15sp"
             tools:ignore="HardcodedText,SpUsage" />
@@ -47,10 +70,11 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:background="@drawable/background_edit_text_true"
             android:drawableStart="@drawable/baseline_person_24"
             android:drawableLeft="@drawable/baseline_person_24"
+            android:drawablePadding="@dimen/_5dp"
             android:hint="@string/user_name"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -70,13 +94,14 @@
             android:layout_marginTop="@dimen/_4dp"
             android:textAppearance="@style/TextViewSubtitle2"
             android:textColor="@color/color_red"
-            android:textSize="@dimen/_14sp" />
+            android:textSize="@dimen/_14sp"
+            android:visibility="gone" />
 
         <TextView
             style="@style/TextViewBody1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_30dp"
             android:text="@string/password"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sp"
@@ -96,10 +121,11 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2dp"
+                android:layout_marginTop="@dimen/_8dp"
                 android:background="@drawable/background_edit_text_true"
                 android:drawableStart="@drawable/baseline_lock_24"
                 android:drawableLeft="@drawable/baseline_lock_24"
+                android:drawablePadding="@dimen/_5dp"
                 android:hint="@string/password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
@@ -121,14 +147,25 @@
             android:layout_marginTop="@dimen/_4dp"
             android:textAppearance="@style/TextViewSubtitle2"
             android:textColor="@color/color_red"
-            android:textSize="@dimen/_14sp" />
+            android:textSize="@dimen/_14sp"
+            android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/loginByOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="Đăng nhập bằng OTP"
+            android:textAppearance="@style/TextViewSubtitle2"
+            android:textColor="@color/color_orange"
+            android:textSize="14sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_25dp"
             android:background="@drawable/bg_buttom"
             android:paddingVertical="13dp"
             android:text="@string/login"
