@@ -1,5 +1,7 @@
 package code.madlife.foodfirstver.encryption
 
+import android.util.Log
+
 class LoginDev {
     init {
         Login.load()
@@ -9,4 +11,6 @@ class LoginDev {
         @JvmStatic
         external fun encryptKey(input: String): String
     }
+
+
 }

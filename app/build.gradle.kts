@@ -109,7 +109,7 @@ android {
     sourceSets {
         getByName("main") {
             jni {
-                srcDirs("src\\main\\jni", "src\\main\\jni")
+                srcDirs("src\\main\\jniLibs")
             }
         }
     }
