@@ -5,6 +5,7 @@ import code.madlife.foodfirstver.BuildConfig
 import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.HeaderRetrofitEnum
 import code.madlife.foodfirstver.core.utils.Utility
+import code.madlife.foodfirstver.data.network.service.AuthService
 import code.madlife.foodfirstver.data.network.service.DemoService
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -28,11 +29,14 @@ import kotlin.text.Typography.dagger
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitServiceModule {
-    private fun getHttpClient(context: Context, headerRetrofitEnum: HeaderRetrofitEnum = HeaderRetrofitEnum.NONE): OkHttpClient {
+    private fun getHttpClient(
+        context: Context,
+        headerRetrofitEnum: HeaderRetrofitEnum = HeaderRetrofitEnum.NONE
+    ): OkHttpClient {
         val deviceId = Utility.getDeviceId(context)
         return OkHttpClient.Builder().also { client ->
             client.retryOnConnectionFailure(true)
-            client.addInterceptor{
+            client.addInterceptor {
                 val newRequest = it.request().newBuilder().apply {
                     //check enum header in here to set header
                 }.build()
@@ -42,7 +46,8 @@ class RetrofitServiceModule {
                 val loggingContent = HttpLoggingInterceptor()
                 loggingContent.setLevel(HttpLoggingInterceptor.Level.BODY)
                 val collector = ChuckerCollector(context)
-                val logging = ChuckerInterceptor.Builder(context).alwaysReadResponseBody(true).collector(collector).build()
+                val logging = ChuckerInterceptor.Builder(context).alwaysReadResponseBody(true)
+                    .collector(collector).build()
                 client.interceptors().add(logging)
                 client.interceptors().add(loggingContent)
             }
@@ -66,5 +71,23 @@ class RetrofitServiceModule {
 
     @Provides
     @Singleton
-    fun provideAppService(@Named(Constants.Inject.API) retrofit: Retrofit): DemoService = retrofit.create(DemoService::class.java)
+    @Named(Constants.Inject.AUTH)
+    fun provideRetrofitLogin(gson: Gson, context: Context): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(getHttpClient(context))
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppService(@Named(Constants.Inject.API) retrofit: Retrofit): DemoService =
+        retrofit.create(DemoService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAuthService(@Named(Constants.Inject.AUTH) retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 }

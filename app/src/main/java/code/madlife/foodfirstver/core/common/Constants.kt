@@ -1,8 +1,12 @@
 package code.madlife.foodfirstver.core.common
 
 object Constants {
+
+    const val TOKEN_USER = "TOKEN_USER"
+
     object Inject {
         const val API = "API"
+        const val AUTH = "AUTH"
     }
 
     object Preference {

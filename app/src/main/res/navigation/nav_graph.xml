@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="code.madlife.foodfirstver.presentation.feature.fragment.user.LoginFragment"
+        android:name="code.madlife.foodfirstver.presentation.feature.fragment.user.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action

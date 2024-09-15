@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".presentation.feature.fragment.user.LoginFragment">
+    tools:context=".presentation.feature.fragment.user.login.LoginFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout

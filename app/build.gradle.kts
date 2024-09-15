@@ -115,7 +115,7 @@ android {
         create("Madlife") {
             dimension = "environment"
             manifestPlaceholders["appLabel"] = "Food App Madlife"
-            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://a50c-222-255-27-220.ngrok-free.app/api/v1/\"")
             buildConfigField(
                 "String",
                 "KEY_128",
