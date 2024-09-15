@@ -59,4 +59,9 @@ abstract class BaseFragment<T: ViewBinding>(private val bindingInflater: (layout
     abstract fun initView()
     abstract fun initObserver()
     abstract fun getData()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

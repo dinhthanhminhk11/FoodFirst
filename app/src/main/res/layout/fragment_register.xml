@@ -7,8 +7,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".presentation.feature.fragment.user.LoginFragment">
-
+    tools:context=".presentation.feature.fragment.user.RegisterFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -24,10 +23,11 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="@string/login"
+            app:title="@string/register"
             app:titleTextAppearance="@style/ToolbarTextAppearanceNormal" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             style="@style/TextViewHeadline2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_back"
+            android:text="@string/welcome"
             android:textColor="@color/black"
             android:textSize="@dimen/_20sp"
             tools:ignore="HardcodedText,SpUsage" />
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5dp"
-            android:text="@string/enter_form"
+            android:text="@string/enter_form_register"
             android:textColor="@color/color_494F67"
             android:textSize="@dimen/_15sp"
             tools:ignore="HardcodedText,SpUsage" />
@@ -82,52 +82,14 @@
                 android:textAppearance="@style/TextViewSubtitle1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordContainer"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:endIconMode="password_toggle"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true"
-            app:layout_constraintBottom_toBottomOf="@+id/userImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/userImage"
-            app:layout_constraintTop_toTopOf="@id/userImage"
-            app:startIconDrawable="@drawable/baseline_lock_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:hint="@string/password"
-                android:importantForAutofill="yes"
-                android:inputType="textPassword"
-                android:textAppearance="@style/TextViewSubtitle1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/loginByOTP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="@dimen/_15dp"
-            android:text="@string/login_by_otp"
-            android:textAppearance="@style/TextViewSubtitle2"
-            android:textColor="@color/color_orange"
-            android:textSize="14sp" />
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/login"
+            android:id="@+id/btn_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_25dp"
             android:background="@drawable/bg_buttom"
             android:paddingVertical="13dp"
-            android:text="@string/login"
+            android:text="@string/continue_text"
             android:textAllCaps="false"
             android:textAppearance="@style/TextViewButton"
             android:textColor="@color/white" />
@@ -143,16 +105,16 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/are_you_have_account"
+                android:text="@string/your_have_account"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tvSignUp"
+                android:id="@+id/login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/register"
+                android:text="@string/login_now"
                 android:textColor="@color/color_orange"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -169,4 +131,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </RelativeLayout>

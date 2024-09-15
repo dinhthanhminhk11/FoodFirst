@@ -9,10 +9,25 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_recently">Vừa xong</string>
     <string name="text_minute_ago">phút trước</string>
+    <string name="are_you_have_account">Bạn chưa có tài khoản?</string>
+    <string name="your_have_account">Bạn đã có tài khoản</string>
+    <string name="login_now">Đăng nhập ngay</string>
+    <string name="arr_you_have_otp">Bạn không nhận được OTP?</string>
     <string name="text_hour_ago">giờ trước</string>
     <string name="text_day_ago">ngày trước</string>
     <string name="login">Đăng nhập</string>
     <string name="user_name">Email</string>
     <string name="password">Mật khẩu</string>
     <string name="register">Đăng ký</string>
+    <string name="continue_text">Tiếp tục</string>
+    <string name="sent_again">Gửi lại</string>
+    <string name="login_by_otp">Đăng nhập bằng OTP</string>
+    <string name="login_by_pass">Đăng nhập bằng mật khẩu</string>
+    <string name="welcome_back">Chào mừng trở lại</string>
+    <string name="welcome">Chào mừng</string>
+    <string name="confirm">Xác thực</string>
+    <string name="enter_form">Nhập thông tin của bạn để tiếp tục</string>
+    <string name="enter_form_register">Nhập địa chỉ email của bạn để tiếp tục</string>
+    <string name="content_otp_text_view">Nhập mã otp được gửi đến email của bạn</string>
+
 </resources>

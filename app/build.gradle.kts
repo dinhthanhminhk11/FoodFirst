@@ -40,8 +40,10 @@ android {
         archivesName.set("FoodFirst-($versionCode-$versionName)${getDate()}")
 
         ndk {
-            abiFilters += listOf("x86", "x86_64", "armeabi", "armeabi-v7a",
-                "arm64-v8a")
+            abiFilters += listOf(
+                "x86", "x86_64", "armeabi", "armeabi-v7a",
+                "arm64-v8a"
+            )
         }
     }
 
@@ -99,15 +101,31 @@ android {
             dimension = "environment"
             manifestPlaceholders["appLabel"] = "Food App BoQuan"
             buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
-            buildConfigField("String", "KEY_128", "\"Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz\"")
-            buildConfigField("String", "IV_128", "\"foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz\"")
+            buildConfigField(
+                "String",
+                "KEY_128",
+                "\"Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz\""
+            )
+            buildConfigField(
+                "String",
+                "IV_128",
+                "\"foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz\""
+            )
         }
         create("Madlife") {
             dimension = "environment"
             manifestPlaceholders["appLabel"] = "Food App Madlife"
             buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
-            buildConfigField("String", "KEY_128", "\"Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz\"")
-            buildConfigField("String", "IV_128", "\"foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz\"")
+            buildConfigField(
+                "String",
+                "KEY_128",
+                "\"Sxqa3KHdPs1uSAjNOSVmcvE/OhUMH5eZXQLtoRSUd6G0a22PPPwS38/F/lryy3Cz\""
+            )
+            buildConfigField(
+                "String",
+                "IV_128",
+                "\"foRC3P7jiVX9Z4Fgj0nm9QGP1H7eEEj9DW3z7VloN920a22PPPwS38/F/lryy3Cz\""
+            )
         }
     }
     sourceSets {
@@ -196,6 +214,5 @@ dependencies {
     releaseImplementation(libs.chucker.release)
 
     // debugImplementation because LeakCanary should only run in debug builds.
-    debugImplementation(libs.leakCanary)
 }
 

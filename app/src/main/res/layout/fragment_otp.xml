@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".presentation.feature.fragment.user.OtpFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title=""
+            app:titleTextAppearance="@style/ToolbarTextAppearanceNormal" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_marginHorizontal="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/TextViewHeadline2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20sp"
+            tools:ignore="HardcodedText,SpUsage" />
+
+        <TextView
+            style="@style/TextViewBody1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/content_otp_text_view"
+            android:textColor="@color/color_494F67"
+            android:textSize="@dimen/_15sp"
+            tools:ignore="HardcodedText,SpUsage" />
+
+        <code.madlife.foodfirstver.presentation.core.widget.otp.OtpView
+            android:id="@+id/otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:OtpCursorColor="@color/color_red"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_24dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="number"
+            android:textColor="@color/color_orange"
+            android:textSize="@dimen/_20sp"
+            app:OtpHideLineWhenFilled="false"
+            app:OtpItemCount="6"
+            app:OtpItemRadius="@dimen/_8dp"
+            app:OtpLineColor="@color/otp_item_state"
+            app:OtpState_filled="true"
+            app:OtpViewType="rectangle"
+            tools:ignore="ObsoleteLayoutParam" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25dp"
+            android:background="@drawable/bg_buttom"
+            android:paddingVertical="13dp"
+            android:text="@string/continue_text"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextViewButton"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arr_you_have_otp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/resent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/sent_again"
+                android:textColor="@color/color_orange"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
