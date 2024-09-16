@@ -10,6 +10,7 @@ import code.madlife.foodfirstver.databinding.FragmentRegisterBinding
 import code.madlife.foodfirstver.encryption.Login
 import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
+import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
 import code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragment
 import code.madlife.foodfirstver.presentation.feature.fragment.user.login.AuthState
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 val textEntryPoint = Login.encryptData(text)
                 viewModel.register(REQLogin(textEntryPoint))
             } else {
+                CookieBar.build(requireActivity()).setTitle(getString(R.string.Notify))
+                    .setMessage(getString(R.string.please_enter_mail))
+                    .setIcon(R.drawable.ic_warning_icon_check).setTitleColor(R.color.color_black)
+                    .setMessageColor(R.color.color_black).setDuration(3000)
+                    .setBackgroundRes(R.drawable.background_toast)
+                    .setCookiePosition(CookieBar.BOTTOM).show()
                 binding.userNameContainer.error = getString(R.string.please_enter_mail)
             }
         }
@@ -74,7 +81,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     override fun onClick(v: View?) {
+
     }
+
 
     private fun validateEmail(email: String): Boolean {
         if (email.isEmpty()) {

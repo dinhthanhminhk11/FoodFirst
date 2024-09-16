@@ -21,7 +21,7 @@ class SetPassViewModel @Inject constructor(private val authRepository: AuthRepos
                 if (it.data != null && it.data.status == true) {
                     setPasswordMutableLiveData.value = AuthState.Success(it.data)
                 } else {
-                    setPasswordMutableLiveData.value = AuthState.Fail(it.data?.error)
+                    setPasswordMutableLiveData.value = AuthState.Fail(it.data?.error, it.data?.code)
                 }
             }
         }

@@ -22,7 +22,7 @@ class LoginViewModel @Inject constructor(private val authRepository: AuthReposit
                 if (it.data != null && it.data.status == true) {
                     authState.value = AuthState.Success(it.data)
                 } else {
-                    authState.value = AuthState.Fail(it.data?.error)
+                    authState.value = AuthState.Fail(it.data?.error,it.data?.code)
                 }
             }
         }

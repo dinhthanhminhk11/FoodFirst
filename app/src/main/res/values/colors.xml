@@ -19,7 +19,7 @@
     <color name="color_white">#FFFFFFFF</color>
     <color name="color_white_alpha_10">#1AFFFFFF</color>
     <color name="color_white_alpha_20">#33FFFFFF</color>
-
+    <color name="color_F6F6F6">#F6F6F6</color>
     <color name="color_pink">#F8EFFF</color>
     <color name="gray_8a">#8A8A8A</color>
     <color name="gray_88">#888888</color>
@@ -119,4 +119,5 @@
     <color name="color_DBE0E6">#DBE0E6</color>
     <color name="color_494F67">#494F67</color>
     <color name="color_gray_C7">#C7C7C7</color>
+    <color name="default_action_color">#26a69a</color>
 </resources>

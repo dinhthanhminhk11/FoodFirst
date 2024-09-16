@@ -12,4 +12,6 @@ data class LoginResponseNative(
     var error: String?,
     @SerializedName("data")
     var data: String?,
+    @SerializedName("code")
+    var code: Int?
 ) : Serializable

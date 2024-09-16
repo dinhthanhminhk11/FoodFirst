@@ -22,7 +22,7 @@ class OtpViewModel @Inject constructor(private val authRepository: AuthRepositor
                 if (it.data != null && it.data.status == true) {
                     verifyOtpMutableLiveData.value = AuthState.Success(it.data)
                 } else {
-                    verifyOtpMutableLiveData.value = AuthState.Fail(it.data?.error)
+                    verifyOtpMutableLiveData.value = AuthState.Fail(it.data?.error,it.data?.code)
                 }
             }
         }
@@ -34,7 +34,7 @@ class OtpViewModel @Inject constructor(private val authRepository: AuthRepositor
                 if (it.data != null && it.data.status == true) {
                     resentOtpMutableLiveData.value = AuthState.Success(it.data)
                 } else {
-                    resentOtpMutableLiveData.value = AuthState.Fail(it.data?.error)
+                    resentOtpMutableLiveData.value = AuthState.Fail(it.data?.error,it.data?.code)
                 }
             }
         }

@@ -27,6 +27,8 @@
     <string name="login_by_pass">Đăng nhập bằng mật khẩu</string>
     <string name="welcome_back">Chào mừng trở lại</string>
     <string name="welcome">Chào mừng</string>
+    <string name="cancel">Hủy</string>
+    <string name="Notify">Thông báo</string>
     <string name="confirm">Xác thực</string>
     <string name="set_password_title">Đặt mật khẩu</string>
     <string name="enter_form">Nhập thông tin của bạn để tiếp tục</string>
