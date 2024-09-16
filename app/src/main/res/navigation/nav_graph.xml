@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="code.madlife.foodfirstver.presentation.feature.fragment.user.RegisterFragment"
+        android:name="code.madlife.foodfirstver.presentation.feature.fragment.user.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/otpFragment"
-        android:name="code.madlife.foodfirstver.presentation.feature.fragment.user.OtpFragment"
+        android:name="code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp" />
 </navigation>

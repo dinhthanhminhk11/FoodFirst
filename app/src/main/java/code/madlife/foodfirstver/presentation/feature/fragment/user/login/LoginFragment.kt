@@ -2,7 +2,6 @@ package code.madlife.foodfirstver.presentation.feature.fragment.user.login
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -12,11 +11,12 @@ import code.madlife.foodfirstver.core.common.MySharedPreferences
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
 import code.madlife.foodfirstver.data.model.user.User
 import code.madlife.foodfirstver.data.model.user.UserClient
+import code.madlife.foodfirstver.data.model.user.UserClient.email
 import code.madlife.foodfirstver.databinding.FragmentLoginBinding
 import code.madlife.foodfirstver.encryption.Login
 import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.user.RegisterFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.user.register.RegisterFragment
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,11 +60,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.login.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
-            if (isLoginByPass) {
-                val text =
-                    "{\"email\" : \"${binding.username.text.toString()}\" , \"password\" : \"${binding.password.text.toString()}\"}"
-                val textEntryPoint = Login.encryptData(text)
-                viewModel.login(REQLogin(textEntryPoint))
+            if (validateInput(binding.username.text.toString(), binding.password.text.toString())) {
+                if (isLoginByPass) {
+                    val text =
+                        "{\"email\" : \"${binding.username.text.toString()}\" , \"password\" : \"${binding.password.text.toString()}\"}"
+                    val textEntryPoint = Login.encryptData(text)
+                    viewModel.login(REQLogin(textEntryPoint))
+                }
             }
         }
 
@@ -102,6 +104,33 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             }
         }
     }
+
+    fun validateInput(email: String?, password: String?): Boolean {
+        if (email.isNullOrEmpty()) {
+            showError("Email không được để trống")
+            return false
+        }
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        if (!email.matches(Regex(emailPattern))) {
+            showError("Định dạng email không hợp lệ")
+            return false
+        }
+        if (password.isNullOrEmpty()) {
+            showError("Mật khẩu không được để trống")
+            return false
+        }
+
+        if (password.length < 8) {
+            showError("Mật khẩu phải có ít nhất 8 ký tự")
+            return false
+        }
+        return true
+    }
+
+    fun showError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun getData() {
 

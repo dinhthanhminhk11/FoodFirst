@@ -11,4 +11,19 @@ class AuthRepository @Inject constructor(private val authDataSource: AuthDataSou
     suspend fun login(reqLogin: REQLogin) = flow {
         emit(authDataSource.login(reqLogin))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun register(reqLogin: REQLogin) = flow {
+        emit(authDataSource.register(reqLogin))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun verifyOtp(reqLogin: REQLogin) = flow {
+        emit(authDataSource.verifyOtp(reqLogin))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun reSentOtp(reqLogin: REQLogin) = flow {
+        emit(authDataSource.reSentOtp(reqLogin))
+    }.flowOn(Dispatchers.IO)
+    suspend fun setPassword(reqLogin: REQLogin) = flow {
+        emit(authDataSource.setPassword(reqLogin))
+    }.flowOn(Dispatchers.IO)
 }

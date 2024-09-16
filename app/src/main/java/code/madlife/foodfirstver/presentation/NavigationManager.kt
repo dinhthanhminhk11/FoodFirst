@@ -91,12 +91,12 @@ class NavigationManager : OnBackStackChangedListener {
                 }
                 mContentId?.let {
                     if (isReplace)
-                        replace(it, fragment)
+                        replace(it, fragment, fragment::class.simpleName)
                     else
                         add(it, fragment, fragment::class.simpleName)
 
                 }
-                addToBackStack((2147483646.0 * Math.random()).toInt().toString())
+                addToBackStack(fragment::class.simpleName)
                 navigateAble = false
                 handlerNavigate.postDelayed({
                     navigateAble = true
@@ -106,11 +106,6 @@ class NavigationManager : OnBackStackChangedListener {
             e.printStackTrace()
         }
     }
-
-//    @AnimRes enter: Int,
-//    @AnimRes exit: Int,
-//    @AnimRes popEnter: Int,
-//    @AnimRes popExit: Int
 
     fun openFragment(fragment: Fragment, isReplace: Boolean = false) {
         openFragment(fragment, isReplace, R.anim.slide_in_left, R.anim.opacity_1_to_0, 0, R.anim.slide_out_right)
@@ -208,8 +203,23 @@ class NavigationManager : OnBackStackChangedListener {
         }
     }
 
+    fun removeFragment(fragment: Fragment?) {
+        fragment?.let {
+            mFragmentManager.commit {
+                remove(it)
+            }
+        }
+    }
 
-
-
-
+    fun popBackToFragment(fragmentClass: Class<out Fragment>) {
+        val fragmentTag = fragmentClass.simpleName
+        val backStackCount = mFragmentManager.backStackEntryCount
+        for (i in (backStackCount - 1) downTo 0) {
+            val backStackEntry = mFragmentManager.getBackStackEntryAt(i)
+            if (backStackEntry.name == fragmentTag) {
+                mFragmentManager.popBackStack(fragmentTag, 0)
+                return
+            }
+        }
+    }
 }

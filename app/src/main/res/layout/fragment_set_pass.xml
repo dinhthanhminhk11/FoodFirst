@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".presentation.feature.fragment.user.register.RegisterFragment">
+    tools:context=".presentation.feature.fragment.user.register.SetPassFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="@string/register"
+            app:title=""
             app:titleTextAppearance="@style/ToolbarTextAppearanceNormal" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -42,17 +42,18 @@
             style="@style/TextViewHeadline2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome"
+            android:text="@string/set_password_title"
             android:textColor="@color/black"
             android:textSize="@dimen/_20sp"
             tools:ignore="HardcodedText,SpUsage" />
 
         <TextView
+            android:id="@+id/content"
             style="@style/TextViewBody1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5dp"
-            android:text="@string/enter_form_register"
+            android:text="@string/set_password_content"
             android:textColor="@color/color_494F67"
             android:textSize="@dimen/_15sp"
             tools:ignore="HardcodedText,SpUsage" />
@@ -63,62 +64,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20dp"
+            app:endIconMode="password_toggle"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true"
             app:layout_constraintBottom_toBottomOf="@+id/userImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/userImage"
             app:layout_constraintTop_toTopOf="@id/userImage"
-            app:startIconDrawable="@drawable/baseline_person_24">
+            app:startIconDrawable="@drawable/baseline_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="name"
-                android:hint="@string/user_name"
+                android:autofillHints="password"
+                android:hint="@string/password"
                 android:importantForAutofill="yes"
-                android:inputType="textPersonName|textCapWords|text"
+                android:inputType="textPassword"
                 android:textAppearance="@style/TextViewSubtitle1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_continue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25dp"
+                android:background="@drawable/bg_buttom"
+                android:paddingVertical="13dp"
+                android:text="@string/success"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextViewButton"
+                android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_continue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_25dp"
-            android:background="@drawable/bg_buttom"
-            android:paddingVertical="13dp"
-            android:text="@string/continue_text"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextViewButton"
-            android:textColor="@color/white" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/your_have_account"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/login_now"
-                android:textColor="@color/color_orange"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
     </LinearLayout>
 
     <ProgressBar

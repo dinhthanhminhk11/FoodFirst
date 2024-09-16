@@ -12,4 +12,25 @@ interface AuthService {
     suspend fun login(
         @Body reqLogin: REQLogin
     ): Response<LoginResponseNative>
+
+    @POST(Endpoint.REGISTER)
+    suspend fun register(
+        @Body reqRegister: REQLogin
+    ): Response<LoginResponseNative>
+
+
+    @POST(Endpoint.VERIFY_OTP)
+    suspend fun verifyOtp(
+        @Body reqVerifyOtp: REQLogin
+    ): Response<LoginResponseNative>
+
+    @POST(Endpoint.RESENT_OTP)
+    suspend fun reSentOtp(
+        @Body reqVerifyOtp: REQLogin
+    ): Response<LoginResponseNative>
+
+    @POST(Endpoint.SET_PASSWORD)
+    suspend fun setPassword(
+        @Body setPassBody: REQLogin
+    ): Response<LoginResponseNative>
 }

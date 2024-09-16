@@ -13,4 +13,19 @@ class AuthDataSource @Inject constructor(private val authService: AuthService, c
     suspend fun login(reqLogin: REQLogin): Resource<LoginResponseNative> = safeApiCall {
         authService.login(reqLogin)
     }
+
+    suspend fun register(reqLogin: REQLogin): Resource<LoginResponseNative> = safeApiCall {
+        authService.register(reqLogin)
+    }
+
+    suspend fun verifyOtp(reqLogin: REQLogin): Resource<LoginResponseNative> = safeApiCall {
+        authService.verifyOtp(reqLogin)
+    }
+
+    suspend fun reSentOtp(reqLogin: REQLogin): Resource<LoginResponseNative> = safeApiCall {
+        authService.reSentOtp(reqLogin)
+    }
+    suspend fun setPassword(reqLogin: REQLogin): Resource<LoginResponseNative> = safeApiCall {
+        authService.setPassword(reqLogin)
+    }
 }
