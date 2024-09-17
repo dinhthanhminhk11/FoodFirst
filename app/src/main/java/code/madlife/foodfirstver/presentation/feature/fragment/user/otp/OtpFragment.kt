@@ -1,5 +1,6 @@
 package code.madlife.foodfirstver.presentation.feature.fragment.user.otp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Html
@@ -7,14 +8,23 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import code.madlife.foodfirstver.R
+import code.madlife.foodfirstver.core.common.Constants
+import code.madlife.foodfirstver.core.common.MySharedPreferences
+import code.madlife.foodfirstver.core.common.showToastError
+import code.madlife.foodfirstver.core.common.showToastSuccess
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
+import code.madlife.foodfirstver.data.model.user.User
+import code.madlife.foodfirstver.data.model.user.UserClient
 import code.madlife.foodfirstver.databinding.FragmentOtpBinding
 import code.madlife.foodfirstver.encryption.Login
 import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
+import code.madlife.foodfirstver.presentation.core.widget.dialog.DialogConfirmCustom
 import code.madlife.foodfirstver.presentation.core.widget.otp.OnOtpCompletionListener
+import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
 import code.madlife.foodfirstver.presentation.feature.fragment.user.login.AuthState
 import code.madlife.foodfirstver.presentation.feature.fragment.user.register.SetPassFragment
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate),
     OnOtpCompletionListener {
     private lateinit var countdownTimer: CountDownTimer
-    private val otpValidityDurationInMillis: Long = 5000
+    private val otpValidityDurationInMillis: Long = 60000
     private var otpType: String? = null;
     private var email: String? = null;
     private var countResent: Int = 1;
@@ -55,7 +65,11 @@ class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate
         }
 
         binding.toolbar.setNavigationOnClickListener {
-            NavigationManager.getInstance().popBackStack()
+            DialogConfirmCustom.create(
+                context = requireActivity(), content = getString(R.string.text_confirm_otp)
+            ) {
+                NavigationManager.getInstance().popBackStack()
+            }.show()
         }
 
         binding.otp.requestFocus()
@@ -69,6 +83,7 @@ class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate
 
     }
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun initObserver() {
         viewModel.resentOtpMutableLiveData.observe(viewLifecycleOwner) {
             when (it) {
@@ -80,8 +95,13 @@ class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate
 
                 is AuthState.Fail -> {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    if (it.code == Constants.CodeError.ACCOUNT_LOCKED) {
+                        NavigationManager.getInstance().popBackStack()
+                        showToastError(
+                            activity = activity!!,
+                            content = getString(R.string.account_locked)
+                        )
+                    }
                 }
 
                 AuthState.Loading -> {
@@ -94,14 +114,56 @@ class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate
             when (it) {
                 is AuthState.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    NavigationManager.getInstance()
-                        .openFragment(SetPassFragment.newInstance(email = email), true)
+                    if (it.data.type.equals(Constants.TYPE_LOGIN)) {
+                        val gson = Gson()
+                        val user: User =
+                            gson.fromJson(
+                                Login.decryptData(it.data.data.toString()),
+                                User::class.java
+                            )
+                        UserClient.setUserFromUser(user)
+                        MySharedPreferences.getInstance(requireActivity())
+                            .putString(Constants.TOKEN_USER, user.token.toString())
+                        showToastSuccess(
+                            activity = activity!!,
+                            content = getString(R.string.login_success)
+                        )
+                        NavigationManager.getInstance().popToHome()
+                    } else {
+                        NavigationManager.getInstance()
+                            .openFragment(SetPassFragment.newInstance(email = email), true)
+                    }
                 }
 
                 is AuthState.Fail -> {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    when (it.code) {
+                        Constants.CodeError.ACCOUNT_LOCKED -> {
+                            NavigationManager.getInstance().popBackStack()
+                            showToastError(
+                                activity = activity!!,
+                                content = getString(R.string.account_locked)
+                            )
+                        }
+
+                        Constants.CodeError.OTP_valid -> {
+                            binding.otp.setLineColor(resources.getColor(R.color.color_red))
+                            binding.otp.setTextColor(resources.getColor(R.color.color_red))
+                            showToastError(
+                                activity = activity!!,
+                                content = getString(R.string.otp_valid)
+                            )
+                        }
+
+                        Constants.CodeError.OTP_expired -> {
+                            binding.otp.setLineColor(resources.getColor(R.color.color_red))
+                            binding.otp.setTextColor(resources.getColor(R.color.color_red))
+                            showToastError(
+                                activity = activity!!,
+                                content = getString(R.string.otp_expired)
+                            )
+                        }
+                    }
                 }
 
                 AuthState.Loading -> {

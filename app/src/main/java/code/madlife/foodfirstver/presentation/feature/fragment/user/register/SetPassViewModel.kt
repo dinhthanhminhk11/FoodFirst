@@ -15,6 +15,20 @@ class SetPassViewModel @Inject constructor(private val authRepository: AuthRepos
     BaseViewModel() {
     val setPasswordMutableLiveData = MutableLiveData<AuthState>()
 
+    val authState = MutableLiveData<AuthState>()
+
+    fun login(reqLogin: REQLogin) {
+        viewModelScope.launch {
+            authRepository.login(reqLogin).collect {
+                if (it.data != null && it.data.status == true) {
+                    authState.value = AuthState.Success(it.data)
+                } else {
+                    authState.value = AuthState.Fail(it.data?.error, it.data?.code)
+                }
+            }
+        }
+    }
+
     fun setPassword(reqLogin: REQLogin) {
         viewModelScope.launch {
             authRepository.setPassword(reqLogin).collect {

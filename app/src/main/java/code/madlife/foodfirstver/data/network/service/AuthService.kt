@@ -33,4 +33,9 @@ interface AuthService {
     suspend fun setPassword(
         @Body setPassBody: REQLogin
     ): Response<LoginResponseNative>
+
+    @POST(Endpoint.CHECK_ACCOUNT)
+    suspend fun checkAccount(
+        @Body setPassBody: REQLogin
+    ): Response<LoginResponseNative>
 }

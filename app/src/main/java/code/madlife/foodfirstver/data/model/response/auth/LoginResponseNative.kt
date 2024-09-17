@@ -13,5 +13,7 @@ data class LoginResponseNative(
     @SerializedName("data")
     var data: String?,
     @SerializedName("code")
-    var code: Int?
+    var code: Int?,
+    @SerializedName("type")
+    var type: String?
 ) : Serializable

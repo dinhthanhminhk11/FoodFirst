@@ -4,10 +4,21 @@ object Constants {
 
     const val TOKEN_USER = "TOKEN_USER"
     const val TYPE_REGISTER = "register"
+    const val TYPE_LOGIN = "login"
 
     object Inject {
         const val API = "API"
         const val AUTH = "AUTH"
+    }
+
+    object CodeError {
+        const val EMAIL_ALREADY_EXISTS = 1
+        const val ACCOUNT_LOCKED = 2
+        const val OTP_valid = 3
+        const val OTP_expired = 4
+        const val email_not_exits = 5
+        const val email_and_pass_not_exits = 6
+        const val email_un_verify = 7
     }
 
     object Preference {

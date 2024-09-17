@@ -1,18 +1,19 @@
 package code.madlife.foodfirstver.presentation.feature.fragment.user.register
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.core.common.Constants
+import code.madlife.foodfirstver.core.common.showToastError
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
 import code.madlife.foodfirstver.databinding.FragmentRegisterBinding
 import code.madlife.foodfirstver.encryption.Login
 import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
-import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
-import code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragment
 import code.madlife.foodfirstver.presentation.feature.fragment.user.login.AuthState
+import code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     private val viewModel: RegisterViewModel by viewModels()
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun initView() {
         binding.username.setText("dinhthanhminhk11@gmail.com")
         binding.toolbar.setNavigationOnClickListener {
@@ -29,19 +31,17 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         binding.btnContinue.setOnClickListener {
             val email = binding.username.text.toString()
             if (validateEmail(email)) {
+                binding.btnContinue.isEnabled = false
                 binding.progressBar.visibility = View.VISIBLE
                 val text =
                     "{\"email\" : \"${binding.username.text.toString()}\"}"
                 val textEntryPoint = Login.encryptData(text)
                 viewModel.register(REQLogin(textEntryPoint))
             } else {
-                CookieBar.build(requireActivity()).setTitle(getString(R.string.Notify))
-                    .setMessage(getString(R.string.please_enter_mail))
-                    .setIcon(R.drawable.ic_warning_icon_check).setTitleColor(R.color.color_black)
-                    .setMessageColor(R.color.color_black).setDuration(3000)
-                    .setBackgroundRes(R.drawable.background_toast)
-                    .setCookiePosition(CookieBar.BOTTOM).show()
-                binding.userNameContainer.error = getString(R.string.please_enter_mail)
+                showToastError(
+                    activity = activity!!,
+                    content = getString(R.string.please_enter_mail)
+                )
             }
         }
 
@@ -51,10 +51,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun initObserver() {
         viewModel.authState.observe(viewLifecycleOwner) {
             when (it) {
                 is AuthState.Success -> {
+                    binding.btnContinue.isEnabled = true
                     binding.progressBar.visibility = View.GONE
                     NavigationManager.getInstance().openFragment(
                         OtpFragment.newInstance(
@@ -65,12 +67,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 }
 
                 is AuthState.Fail -> {
+                    binding.btnContinue.isEnabled = true
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    if (it.code == Constants.CodeError.EMAIL_ALREADY_EXISTS) {
+                        showToastError(
+                            activity = activity!!,
+                            content = getString(R.string.email_already_exits)
+                        )
+                    }
                 }
 
                 AuthState.Loading -> {
+                    binding.btnContinue.isEnabled = false
                     binding.progressBar.visibility = View.VISIBLE
                 }
             }
