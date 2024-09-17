@@ -23,7 +23,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun initView() {
-        binding.username.setText("dinhthanhminhk11@gmail.com")
         binding.toolbar.setNavigationOnClickListener {
             NavigationManager.getInstance().popBackStack()
         }

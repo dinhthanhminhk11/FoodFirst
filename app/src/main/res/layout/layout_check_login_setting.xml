@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profileVisiable"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/_15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/contentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_23dp"
+        android:lines="2"
+        android:text="@string/title_profile"
+        android:textSize="@dimen/_20dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/_25dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:background="@drawable/bg_buttom"
+        android:text="@string/login_now"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sp" />
+
+    <LinearLayout
+        android:id="@+id/siginProfileLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/are_you_have_account"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvSignUpProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:text="@string/register"
+            android:textColor="@color/color_orange"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

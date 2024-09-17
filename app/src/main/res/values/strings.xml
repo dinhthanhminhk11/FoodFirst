@@ -52,6 +52,30 @@
     <string name="enter_form_register">Nhập địa chỉ email của bạn để tiếp tục</string>
     <string name="content_otp_text_view">Nhập mã otp được gửi đến email &lt;b&gt;%s&lt;/b&gt; của bạn</string>
     <string name="set_password_content">Đặt mật khẩu để hoàn thành bước cuối cùng thiết lập tài khoản của bạn</string>
-
-
+    <string name="your_profile">Hồ sơ của bạn</string>
+    <string name="textLogout2">Bạn có chắc chắn đăng xuất không ?</string>
+    <string name="logout_success">Đăng xuất thành công</string>
+    <string name="title_profile">Đăng nhập để lập kế hoạch ăn uống của bạn</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="question_help1">Các câu hỏi thường gặp</string>
+    <string name="help_center">Trung tâm trợ giúp</string>
+    <string name="help">Trợ giúp</string>
+    <string name="info_me">Những thông tin về chúng tôi</string>
+    <string name="title_info_me">Về chúng tôi</string>
+    <string name="theme">Chủ đề</string>
+    <string name="light">Sáng</string>
+    <string name="dark">Tối</string>
+    <string name="AccSetting">Tài Khoản</string>
+    <string name="Settings">Cài đặt</string>
+    <string name="LanguageSetting">Ngôn ngữ</string>
+    <string name="LanguageSetting_text">Chọn ngôn ngữ của bạn</string>
+    <string name="LanguageSetting2">Thay đổi mật khẩu của bạn</string>
+    <string name="info_myself_edit">Thay đổi thông tin cá nhân của bạn</string>
+    <string name="info_myself">Thông tin cá nhân</string>
+    <string name="show_profile_text">Hiền thị hồ sơ</string>
+    <string name="notification">Thông báo</string>
+    <string name="notification_arrays_text">Hiện tại bạn chưa có thông báo nào</string>
+    <string name="your_payment">Ví của bạn</string>
+    <string name="textInfoTextPayment">Sử dụng ngay</string>
+    <string name="ChangePassSetting">Đổi mật khẩu</string>
 </resources>

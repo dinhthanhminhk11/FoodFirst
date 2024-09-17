@@ -1,12 +1,20 @@
 package code.madlife.foodfirstver.core.common
 
+import android.content.Context
 import android.provider.Settings.Global.getString
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 
 fun View?.show() {
@@ -54,4 +62,22 @@ fun showToastSuccess(
         .setMessageColor(R.color.color_black).setDuration(3000)
         .setBackgroundRes(R.drawable.background_toast)
         .setCookiePosition(CookieBar.BOTTOM).show()
+}
+
+fun loadImage(context: Context, imageUrl: String?, imageView: ImageView) {
+    val options = RequestOptions()
+        .centerCrop()
+        .placeholder(R.drawable.imageloading)
+        .error(R.drawable.imageerror)
+
+    Glide.with(context)
+        .load(imageUrl)
+        .apply(options)
+        .into(imageView)
+}
+
+fun TextView.setUnderlinedText(text: CharSequence) {
+    val spannableString = SpannableString(text)
+    spannableString.setSpan(UnderlineSpan(), 0, text.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+    this.text = spannableString
 }

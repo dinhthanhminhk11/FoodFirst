@@ -45,9 +45,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        binding.username.setText("minhk11642002@gmail.com")
-        binding.password.setText("minhdinhk11")
-
         binding.toolbar.setNavigationOnClickListener {
             NavigationManager.getInstance().popBackStack()
         }
@@ -211,7 +208,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             )
             return false
         }
-        if (password.isNullOrEmpty()) {
+        if (password.isNullOrEmpty() && binding.passwordContainer.visibility != View.GONE) {
             showToastError(
                 activity = activity!!,
                 content = getString(R.string.pass_is_empty)
@@ -219,7 +216,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             return false
         }
 
-        if (password.length < 8) {
+        if (password?.length!! < 8 && binding.passwordContainer.visibility != View.GONE) {
             showToastError(
                 activity = activity!!,
                 content = getString(R.string.pass_is_valid)
@@ -236,5 +233,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun onClick(v: View?) {
 
     }
-
 }

@@ -18,15 +18,14 @@ import code.madlife.foodfirstver.presentation.core.common.Constants.TabMain.HOME
 import code.madlife.foodfirstver.presentation.core.common.Constants.TabMain.MULTIMEDIA_POSITION
 import code.madlife.foodfirstver.presentation.core.utils.TimeUtils
 import code.madlife.foodfirstver.presentation.core.widget.CustomTab
-import code.madlife.foodfirstver.presentation.feature.fragment.HomeFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.LiveFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.NotificationFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.UserFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.VideoFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.HomeFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.LiveFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.NotificationFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.UserFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.VideoFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import org.greenrobot.eventbus.EventBus
 
 
 @AndroidEntryPoint
