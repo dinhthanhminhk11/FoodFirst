@@ -3,7 +3,7 @@ package code.madlife.foodfirstver.core.common
 object Constants {
 
     const val LOGIN_EVENT = 1
-
+    const val LOCATION_PERMISSION_REQUEST_CODE = 100
     const val TOKEN_USER = "TOKEN_USER"
     const val TYPE_REGISTER = "register"
     const val TYPE_LOGIN = "login"

@@ -115,7 +115,11 @@ android {
         create("Madlife") {
             dimension = "environment"
             manifestPlaceholders["appLabel"] = "Food App Madlife"
-            buildConfigField("String", "BASE_URL", "\"https://a50c-222-255-27-220.ngrok-free.app/api/v1/\"")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://a50c-222-255-27-220.ngrok-free.app/api/v1/\""
+            )
             buildConfigField(
                 "String",
                 "KEY_128",
@@ -213,6 +217,9 @@ dependencies {
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.release)
 
+    implementation("com.google.android.gms:play-services-location:17.0.0")
+    implementation("com.google.maps.android:android-maps-utils-v3:2.3.0")
+    implementation("com.airbnb.android:lottie:4.1.0")
     // debugImplementation because LeakCanary should only run in debug builds.
 }
 
