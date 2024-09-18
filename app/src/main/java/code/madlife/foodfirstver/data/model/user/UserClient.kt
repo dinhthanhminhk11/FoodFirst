@@ -1,5 +1,7 @@
 package code.madlife.foodfirstver.data.model.user
 
+import code.madlife.foodfirstver.core.common.MySharedPreferences
+
 
 object UserClient {
     var id: String? = null
@@ -16,5 +18,24 @@ object UserClient {
         image = user.image
         banner = user.imageBanner
         phone = user.phone
+    }
+
+    fun saveUser(sharedPreferences: MySharedPreferences, user: User) {
+        sharedPreferences.putString("id", user._id.toString())
+        sharedPreferences.putString("name", user.fullName.toString())
+        sharedPreferences.putString("email", user.email.toString())
+        sharedPreferences.putString("image", user.image.toString())
+        sharedPreferences.putString("banner", user.imageBanner.toString())
+        sharedPreferences.putString("phone", user.phone.toString())
+    }
+
+    fun getUser(sharedPreferences: MySharedPreferences): UserClient {
+        id = sharedPreferences.getString("id", "")
+        name = sharedPreferences.getString("name", "")
+        email = sharedPreferences.getString("email", "")
+        image = sharedPreferences.getString("image", "")
+        banner = sharedPreferences.getString("banner", "")
+        phone = sharedPreferences.getString("phone", "")
+        return UserClient
     }
 }

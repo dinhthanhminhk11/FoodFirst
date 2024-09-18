@@ -31,4 +31,8 @@ class AuthRepository @Inject constructor(private val authDataSource: AuthDataSou
     suspend fun checkAccount(reqLogin: REQLogin) = flow {
         emit(authDataSource.checkAccount(reqLogin))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun loginByToken(token: String) = flow {
+        emit(authDataSource.loginByToken(token))
+    }.flowOn(Dispatchers.IO)
 }

@@ -5,6 +5,8 @@ import code.madlife.foodfirstver.data.model.response.auth.LoginResponseNative
 import code.madlife.foodfirstver.data.network.Endpoint
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthService {
@@ -38,4 +40,11 @@ interface AuthService {
     suspend fun checkAccount(
         @Body setPassBody: REQLogin
     ): Response<LoginResponseNative>
+
+
+    @GET(Endpoint.LOGIN_BY_TOKEN)
+    suspend fun loginByToken(
+        @Header("access-token-x") token: String
+    ): Response<LoginResponseNative>
+
 }

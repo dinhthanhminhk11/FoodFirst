@@ -207,6 +207,7 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
 
     }
 
+    @SuppressLint("UseRequireInsteadOfGet")
     private fun createListSetting(token: String?) {
         listSetting.add(
             SettingItem(
@@ -277,7 +278,7 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
                         viewType = 1,
                         background = R.drawable.background_setting_item_user,
                         iconResourceLeft = 0,
-                        title = UserClient.email.toString(),
+                        title = UserClient.getUser(MySharedPreferences.getInstance(activity!!)).email.toString(),
                         description = getString(R.string.show_profile_text),
                         isVisible = false
                     ), SettingItem(

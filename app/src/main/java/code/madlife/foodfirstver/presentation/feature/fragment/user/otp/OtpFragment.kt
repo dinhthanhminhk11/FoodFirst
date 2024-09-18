@@ -121,7 +121,7 @@ class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate
                                 Login.decryptData(it.data.data.toString()),
                                 User::class.java
                             )
-                        UserClient.setUserFromUser(user)
+                        UserClient.saveUser(MySharedPreferences.getInstance(activity!!), user)
                         MySharedPreferences.getInstance(requireActivity())
                             .putString(Constants.TOKEN_USER, user.token.toString())
                         showToastSuccess(

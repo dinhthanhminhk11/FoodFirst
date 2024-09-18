@@ -33,4 +33,8 @@ class AuthDataSource @Inject constructor(private val authService: AuthService, c
     suspend fun checkAccount(reqLogin: REQLogin): Resource<LoginResponseNative> = safeApiCall {
         authService.checkAccount(reqLogin)
     }
+
+    suspend fun loginByToken(token: String): Resource<LoginResponseNative> = safeApiCall {
+        authService.loginByToken(token)
+    }
 }

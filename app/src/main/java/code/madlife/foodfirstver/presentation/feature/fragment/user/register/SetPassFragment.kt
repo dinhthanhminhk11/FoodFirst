@@ -10,6 +10,7 @@ import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.MySharedPreferences
 import code.madlife.foodfirstver.core.common.showToastError
 import code.madlife.foodfirstver.core.common.showToastSuccess
+import code.madlife.foodfirstver.data.model.KeyEvent
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
 import code.madlife.foodfirstver.data.model.user.User
 import code.madlife.foodfirstver.data.model.user.UserClient
@@ -22,6 +23,7 @@ import code.madlife.foodfirstver.presentation.feature.fragment.user.login.AuthSt
 import code.madlife.foodfirstver.presentation.feature.fragment.user.login.LoginFragment
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 @AndroidEntryPoint
 class SetPassFragment : BaseFragment<FragmentSetPassBinding>(FragmentSetPassBinding::inflate) {
@@ -98,7 +100,7 @@ class SetPassFragment : BaseFragment<FragmentSetPassBinding>(FragmentSetPassBind
                     val gson = Gson()
                     val user: User =
                         gson.fromJson(Login.decryptData(it.data.data.toString()), User::class.java)
-                    UserClient.setUserFromUser(user)
+                    UserClient.saveUser(MySharedPreferences.getInstance(activity!!), user)
                     MySharedPreferences.getInstance(requireActivity())
                         .putString(Constants.TOKEN_USER, user.token.toString())
                     showToastSuccess(
@@ -106,6 +108,7 @@ class SetPassFragment : BaseFragment<FragmentSetPassBinding>(FragmentSetPassBind
                         content = getString(R.string.login_success)
                     )
                     NavigationManager.getInstance().popToHome()
+                    EventBus.getDefault().post(KeyEvent(Constants.LOGIN_EVENT))
                 }
 
                 is AuthState.Fail -> {

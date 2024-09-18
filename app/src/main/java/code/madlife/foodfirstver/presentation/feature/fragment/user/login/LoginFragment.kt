@@ -3,7 +3,6 @@ package code.madlife.foodfirstver.presentation.feature.fragment.user.login
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
 import androidx.fragment.app.viewModels
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.core.common.Constants
@@ -21,6 +20,7 @@ import code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragm
 import code.madlife.foodfirstver.presentation.feature.fragment.user.register.RegisterFragment
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -92,7 +92,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     val gson = Gson()
                     val user: User =
                         gson.fromJson(Login.decryptData(it.data.data.toString()), User::class.java)
-                    UserClient.setUserFromUser(user)
+                    UserClient.saveUser(MySharedPreferences.getInstance(activity!!), user)
                     MySharedPreferences.getInstance(requireActivity())
                         .putString(Constants.TOKEN_USER, user.token.toString())
                     showToastSuccess(
