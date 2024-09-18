@@ -13,6 +13,7 @@ import code.madlife.foodfirstver.core.common.MySharedPreferences
 import code.madlife.foodfirstver.core.common.loadImage
 import code.madlife.foodfirstver.core.common.setUnderlinedText
 import code.madlife.foodfirstver.core.common.showToastSuccess
+import code.madlife.foodfirstver.data.model.KeyEvent
 import code.madlife.foodfirstver.data.model.SettingItem
 import code.madlife.foodfirstver.data.model.user.UserClient
 import code.madlife.foodfirstver.databinding.FragmentUserBinding
@@ -24,22 +25,22 @@ import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 import code.madlife.foodfirstver.presentation.core.widget.dialog.DialogConfirmCustom
 import code.madlife.foodfirstver.presentation.feature.fragment.user.login.LoginFragment
 import code.madlife.foodfirstver.presentation.feature.fragment.user.register.RegisterFragment
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::inflate) {
     private lateinit var adapterSetting: SettingAdapter
     val listSetting = mutableListOf<SettingItem>()
     override fun initView() {
+        createListSetting(
+            MySharedPreferences.getInstance(requireActivity())
+                .getString(Constants.TOKEN_USER, "")
+        )
 
-    }
-
-    override fun onPause() {
-        super.onPause()
-        listSetting.clear()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        listSetting.clear()
+        adapterSetting = SettingAdapter()
+        binding.listSetting.layoutManager = LinearLayoutManager(requireActivity())
+        binding.listSetting.adapter = adapterSetting
     }
 
     override fun initObserver() {
@@ -54,24 +55,12 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        val token =
-            MySharedPreferences.getInstance(requireActivity()).getString(Constants.TOKEN_USER, "")
-
-        createListSetting(token)
-
-        adapterSetting = SettingAdapter()
-        binding.listSetting.layoutManager = LinearLayoutManager(requireActivity())
-        binding.listSetting.adapter = adapterSetting
-    }
-
     inner class SettingAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val DEFAULT_TYPE = 1
         private val CHECK_LOGIN_TYPE = 2
         private val TEXT_VIEW_TYPE = 3
 
-        inner class ViewHolderDefault(val binding: code.madlife.foodfirstver.databinding.ItemSettingUserFragmentBinding) :
+        inner class ViewHolderDefault(val binding: ItemSettingUserFragmentBinding) :
             RecyclerView.ViewHolder(binding.root) {
             fun bind(item: SettingItem) {
                 if (item.isVisible) {
@@ -80,6 +69,13 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
                     binding.content.text = item.description
                     binding.iconLeft.setImageResource(item.iconResourceLeft)
                     binding.iconRight.setImageResource(item.iconResourceRight)
+
+                    binding.iconLeft.visibility = View.VISIBLE
+                    binding.imgUser.visibility = View.GONE
+
+                    binding.iconRight.setColorFilter(resources.getColor(R.color.color_black))
+                    binding.title.setTextColor(resources.getColor(R.color.color_black))
+                    binding.content.setTextColor(resources.getColor(R.color.color_black))
                 } else {
                     binding.contentBackground.setBackgroundResource(item.background)
                     binding.title.text = item.title
@@ -224,46 +220,46 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
         if (token.isNullOrEmpty()) {
             listSetting.addAll(
                 listOf(
-                    createSettingItem(
+                    SettingItem(
                         viewType = 2,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.baseline_person_outline_24,
                         title = getString(R.string.info_myself),
                         description = getString(R.string.info_myself_edit)
-                    ), createSettingItem(
+                    ), SettingItem(
                         viewType = 3,
                         background = 20,
                         iconResourceLeft = 0,
                         title = getString(R.string.Settings),
                         description = ""
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_LANGUAGE,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_internet_language_settings_ver3,
                         title = getString(R.string.LanguageSetting),
                         description = getString(R.string.LanguageSetting_text)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_THEME,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_group_moon_setting,
                         title = getString(R.string.theme),
                         description = getString(R.string.light)
-                    ), createSettingItem(
+                    ), SettingItem(
                         viewType = 3,
                         background = 20,
                         iconResourceLeft = 0,
                         title = getString(R.string.help),
                         description = ""
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_ABOUT_US,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_icon_logo_app,
                         title = getString(R.string.title_info_me),
                         description = getString(R.string.info_me)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_HELP,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
@@ -276,7 +272,7 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
         } else {
             listSetting.addAll(
                 listOf(
-                    createSettingItem(
+                    SettingItem(
                         tag = Constants.TAG_SETTING_NOT_NULL_LOGIN,
                         viewType = 1,
                         background = R.drawable.background_setting_item_user,
@@ -284,20 +280,20 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
                         title = UserClient.email.toString(),
                         description = getString(R.string.show_profile_text),
                         isVisible = false
-                    ), createSettingItem(
+                    ), SettingItem(
                         viewType = 3,
                         background = 20,
                         iconResourceLeft = 0,
                         title = getString(R.string.Settings),
                         description = ""
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_SHOW_INFO,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.baseline_person_outline_24,
                         title = getString(R.string.info_myself),
                         description = getString(R.string.info_myself_edit)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_NOTIFICATION,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
@@ -311,48 +307,48 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
                         iconResourceLeft = R.drawable.ic_payment_svgrepo_com,
                         title = getString(R.string.your_payment),
                         description = getString(R.string.textInfoTextPayment)
-                    )*/, createSettingItem(
+                    )*/, SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_PASS,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_icon_change_pass_setting,
                         title = getString(R.string.ChangePassSetting),
                         description = getString(R.string.LanguageSetting2)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_LANGUAGE,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_internet_language_settings_ver3,
                         title = getString(R.string.LanguageSetting),
                         description = getString(R.string.LanguageSetting_text)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_THEME,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_group_moon_setting,
                         title = getString(R.string.theme),
                         description = getString(R.string.light)
-                    ), createSettingItem(
+                    ), SettingItem(
                         viewType = 3,
                         background = 20,
                         iconResourceLeft = 0,
                         title = getString(R.string.help),
                         description = ""
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_ABOUT_US,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_icon_logo_app,
                         title = getString(R.string.title_info_me),
                         description = getString(R.string.info_me)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_CHANG_HELP,
                         viewType = 1,
                         background = R.drawable.background_setting_item,
                         iconResourceLeft = R.drawable.ic_helps_white_menu,
                         title = getString(R.string.help_center),
                         description = getString(R.string.question_help1)
-                    ), createSettingItem(
+                    ), SettingItem(
                         tag = Constants.TAG_SETTING_LOGOUT,
                         viewType = 3,
                         background = 20,
@@ -366,25 +362,29 @@ class UserFragment : BaseFragment<FragmentUserBinding>(FragmentUserBinding::infl
         }
     }
 
-    private fun createSettingItem(
-        tag: String? = null,
-        viewType: Int,
-        background: Int,
-        iconResourceLeft: Int,
-        iconResourceRight: Int = R.drawable.ic_button_infor_setting, // Thêm tham số này
-        title: String,
-        description: String,
-        isVisible: Boolean = true
-    ): SettingItem {
-        return SettingItem(
-            tag,
-            viewType,
-            background,
-            iconResourceLeft,
-            iconResourceRight,
-            title,
-            description,
-            isVisible
-        )
+    override fun onStart() {
+        super.onStart()
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    fun onEvent(event: KeyEvent) {
+        when (event.idEven) {
+            Constants.LOGIN_EVENT -> {
+                listSetting.clear()
+                createListSetting(
+                    MySharedPreferences.getInstance(requireActivity())
+                        .getString(Constants.TOKEN_USER, "")
+                )
+                adapterSetting.notifyDataSetChanged()
+            }
+        }
     }
 }

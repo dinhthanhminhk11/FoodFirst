@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Html
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.MySharedPreferences
 import code.madlife.foodfirstver.core.common.showToastError
 import code.madlife.foodfirstver.core.common.showToastSuccess
+import code.madlife.foodfirstver.data.model.KeyEvent
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
 import code.madlife.foodfirstver.data.model.user.User
 import code.madlife.foodfirstver.data.model.user.UserClient
@@ -21,11 +21,11 @@ import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 import code.madlife.foodfirstver.presentation.core.widget.dialog.DialogConfirmCustom
 import code.madlife.foodfirstver.presentation.core.widget.otp.OnOtpCompletionListener
-import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
 import code.madlife.foodfirstver.presentation.feature.fragment.user.login.AuthState
 import code.madlife.foodfirstver.presentation.feature.fragment.user.register.SetPassFragment
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 
 @AndroidEntryPoint
@@ -129,6 +129,7 @@ class OtpFragment : BaseFragment<FragmentOtpBinding>(FragmentOtpBinding::inflate
                             content = getString(R.string.login_success)
                         )
                         NavigationManager.getInstance().popToHome()
+                        EventBus.getDefault().post(KeyEvent(Constants.LOGIN_EVENT))
                     } else {
                         NavigationManager.getInstance()
                             .openFragment(SetPassFragment.newInstance(email = email), true)
