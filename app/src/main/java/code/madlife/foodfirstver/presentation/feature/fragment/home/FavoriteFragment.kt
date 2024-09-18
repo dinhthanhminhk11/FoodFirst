@@ -1,11 +1,12 @@
 package code.madlife.foodfirstver.presentation.feature.fragment.home
 
 import android.view.View
-import code.madlife.foodfirstver.databinding.FragmentHomeBinding
-import code.madlife.foodfirstver.databinding.FragmentVideoBinding
+import code.madlife.foodfirstver.databinding.FragmentFavoriteBinding
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 
-class VideoFragment  : BaseFragment<FragmentVideoBinding>(FragmentVideoBinding::inflate) {
+
+class FavoriteFragment :
+    BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate) {
     override fun initView() {
 
     }
@@ -18,4 +19,5 @@ class VideoFragment  : BaseFragment<FragmentVideoBinding>(FragmentVideoBinding::
 
     override fun onClick(v: View?) {
     }
+
 }

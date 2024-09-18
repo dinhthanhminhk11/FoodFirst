@@ -1,4 +1,4 @@
-package code.madlife.foodfirstver.presentation.feature.fragment.home
+package code.madlife.foodfirstver.presentation.feature.fragment.ver2
 
 import android.view.View
 import code.madlife.foodfirstver.databinding.FragmentLiveBinding

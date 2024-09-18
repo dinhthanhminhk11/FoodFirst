@@ -18,11 +18,11 @@ import code.madlife.foodfirstver.presentation.core.common.Constants.TabMain.HOME
 import code.madlife.foodfirstver.presentation.core.common.Constants.TabMain.MULTIMEDIA_POSITION
 import code.madlife.foodfirstver.presentation.core.utils.TimeUtils
 import code.madlife.foodfirstver.presentation.core.widget.CustomTab
+import code.madlife.foodfirstver.presentation.feature.fragment.home.FavoriteFragment
 import code.madlife.foodfirstver.presentation.feature.fragment.home.HomeFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.home.LiveFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.home.NotificationFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.MessageFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.home.OrdersFragment
 import code.madlife.foodfirstver.presentation.feature.fragment.home.UserFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.home.VideoFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,22 +37,48 @@ class KingMainFragment :
         @StringRes val title: Int
     )
 
+//    private val listTab = listOf(
+//        MainTabData(R.drawable.ic_tab_home, R.drawable.ic_tab_home_selected, R.string.home_title),
+//        MainTabData(
+//            R.drawable.baseline_video_camera_front_24_unselect,
+//            R.drawable.baseline_video_camera_front_24,
+//            R.string.live_title
+//        ),
+//        MainTabData(
+//            R.drawable.ic_tab_multimedia,
+//            R.drawable.ic_tab_multimedia_selected,
+//            R.string.video_title
+//        ),
+//        MainTabData(
+//            R.drawable.ic_tab_notification,
+//            R.drawable.ic_tab_notification_selected,
+//            R.string.notification_title
+//        ),
+//        MainTabData(
+//            R.drawable.baseline_person_24,
+//            R.drawable.baseline_person_24_selected,
+//            R.string.user_title
+//        )
+//    )
+
+
     private val listTab = listOf(
+        // sửa lại list thành home , yêu thích , đơn hàng , tin nhắn , user , ver cũ để ver2
         MainTabData(R.drawable.ic_tab_home, R.drawable.ic_tab_home_selected, R.string.home_title),
         MainTabData(
-            R.drawable.baseline_video_camera_front_24_unselect,
-            R.drawable.baseline_video_camera_front_24,
-            R.string.live_title
+            R.drawable.baseline_favorite_24_unselect,
+            R.drawable.baseline_favorite_24,
+            R.string.favorite
         ),
         MainTabData(
-            R.drawable.ic_tab_multimedia,
-            R.drawable.ic_tab_multimedia_selected,
-            R.string.video_title
+            R.drawable.baseline_shopping_bag_24_unselect,
+            R.drawable.baseline_shopping_bag_24,
+            R.string.shop_bag
         ),
         MainTabData(
-            R.drawable.ic_tab_notification,
-            R.drawable.ic_tab_notification_selected,
-            R.string.notification_title
+            R.drawable.baseline_message_24_unselect,
+            R.drawable.baseline_message_24,
+            R.string.message
         ),
         MainTabData(
             R.drawable.baseline_person_24,
@@ -61,6 +87,7 @@ class KingMainFragment :
         )
     )
 
+
     private var pagerAdapter: MyViewPagerAdapter<MainTabData, Fragment>? = null
     override fun getViewPager(): ViewPager2 = binding.pager
 
@@ -68,9 +95,9 @@ class KingMainFragment :
         pagerAdapter = MyViewPagerAdapter(this, listTab) { _, position ->
             when (position) {
                 Constants.TabMain.HOME -> HomeFragment()
-                Constants.TabMain.LIVE -> LiveFragment()
-                Constants.TabMain.VIDEO -> VideoFragment()
-                Constants.TabMain.NOTIFICATION -> NotificationFragment()
+                Constants.TabMain.LIVE -> FavoriteFragment()
+                Constants.TabMain.VIDEO -> OrdersFragment()
+                Constants.TabMain.NOTIFICATION -> MessageFragment()
                 else -> UserFragment()
             }
         }
