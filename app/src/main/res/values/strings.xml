@@ -23,6 +23,8 @@
     <string name="password">Mật khẩu</string>
     <string name="out">Thoát</string>
     <string name="register">Đăng ký</string>
+    <string name="delivered">Giao đến:</string>
+    <string name="search">Tìm kiếm</string>
     <string name="find_location">Đang tìm vị trí .....</string>
     <string name="continue_text">Tiếp tục</string>
     <string name="success">Hoàn thành</string>

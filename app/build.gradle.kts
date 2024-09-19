@@ -118,7 +118,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://a50c-222-255-27-220.ngrok-free.app/api/v1/\""
+                "\"https://fe06-113-190-246-18.ngrok-free.app/api/v1/\""
             )
             buildConfigField(
                 "String",

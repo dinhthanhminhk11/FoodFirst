@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/_16dp"
     tools:context=".presentation.feature.fragment.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delivered" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_15dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_location_on_24" />
+
+        <TextView
+            android:id="@+id/nameLocationYourSelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etSearchHomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@drawable/background_search"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="@dimen/_10dp"
+        android:hint="@string/search"
+        android:imeOptions="actionSearch"
+        android:inputType="textCapSentences|textAutoComplete"
+        android:paddingVertical="@dimen/_15dp"
+        android:paddingLeft="@dimen/_16dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/color_858585"
+        android:textSize="@dimen/_12dp" />
+
+</LinearLayout>
