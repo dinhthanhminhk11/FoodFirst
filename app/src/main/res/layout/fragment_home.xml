@@ -5,17 +5,20 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="@dimen/_16dp"
     tools:context=".presentation.feature.fragment.home.HomeFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_16dp"
         android:text="@string/delivered" />
 
     <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16dp"
         android:layout_marginTop="@dimen/_3dp"
         android:orientation="horizontal">
 
@@ -40,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/_16dp"
         android:layout_marginTop="@dimen/_10dp"
         android:background="@drawable/background_search"
         android:drawableLeft="@drawable/ic_search"
@@ -52,5 +56,13 @@
         android:textColor="@color/black"
         android:textColorHint="@color/color_858585"
         android:textSize="@dimen/_12dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listViewHome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/_20dp"
+        android:overScrollMode="never" />
 
 </LinearLayout>
