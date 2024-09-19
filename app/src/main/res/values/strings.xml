@@ -23,6 +23,7 @@
     <string name="password">Mật khẩu</string>
     <string name="out">Thoát</string>
     <string name="register">Đăng ký</string>
+    <string name="find_location">Đang tìm vị trí .....</string>
     <string name="continue_text">Tiếp tục</string>
     <string name="success">Hoàn thành</string>
     <string name="sent_again">Gửi lại</string>
@@ -81,4 +82,5 @@
     <string name="your_payment">Ví của bạn</string>
     <string name="textInfoTextPayment">Sử dụng ngay</string>
     <string name="ChangePassSetting">Đổi mật khẩu</string>
+    <string name="location_permission_denied">Quyền vị trí bị từ chối</string>
 </resources>

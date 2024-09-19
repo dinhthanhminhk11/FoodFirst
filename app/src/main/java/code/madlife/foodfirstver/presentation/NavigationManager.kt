@@ -80,7 +80,8 @@ class NavigationManager : OnBackStackChangedListener {
         @AnimRes enter: Int,
         @AnimRes exit: Int,
         @AnimRes popEnter: Int,
-        @AnimRes popExit: Int
+        @AnimRes popExit: Int,
+        addToBackStack: Boolean = true
     ) {
         try {
             if (!navigateAble)
@@ -96,7 +97,9 @@ class NavigationManager : OnBackStackChangedListener {
                         add(it, fragment, fragment::class.simpleName)
 
                 }
-                addToBackStack(fragment::class.simpleName)
+                if (addToBackStack) {
+                    addToBackStack(fragment::class.simpleName)
+                }
                 navigateAble = false
                 handlerNavigate.postDelayed({
                     navigateAble = true
@@ -105,6 +108,10 @@ class NavigationManager : OnBackStackChangedListener {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun openFragmentNotAddBackStack(fragment: Fragment, isReplace: Boolean = false , addToBackStack: Boolean) {
+        openFragment(fragment, isReplace, R.anim.slide_in_left, R.anim.opacity_1_to_0, 0, R.anim.slide_out_right , addToBackStack)
     }
 
     fun openFragment(fragment: Fragment, isReplace: Boolean = false) {
