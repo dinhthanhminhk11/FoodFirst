@@ -1,6 +1,8 @@
 package code.madlife.foodfirstver.core.common
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.PictureDrawable
 import android.provider.Settings.Global.getString
 import android.text.Spannable
 import android.text.SpannableString
@@ -8,12 +10,16 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 
@@ -74,6 +80,13 @@ fun loadImage(context: Context, imageUrl: String?, imageView: ImageView) {
         .load(imageUrl)
         .apply(options)
         .into(imageView)
+}
+
+fun loadDrawable(context: Context, drawableResId: Int, imageView: ImageView) {
+    val drawable: Drawable? = ContextCompat.getDrawable(context, drawableResId)
+    drawable?.let {
+        imageView.setImageDrawable(it)
+    }
 }
 
 fun TextView.setUnderlinedText(text: CharSequence) {

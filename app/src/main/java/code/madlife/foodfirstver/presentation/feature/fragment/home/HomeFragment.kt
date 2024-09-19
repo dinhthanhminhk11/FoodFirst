@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import code.madlife.foodfirstver.MainViewModel
+import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.data.model.Category
 import code.madlife.foodfirstver.databinding.FragmentHomeBinding
 import code.madlife.foodfirstver.databinding.LayoutBannerViewHomeBinding
@@ -35,25 +36,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         "https://static-images.vnncdn.net/files/publish/2023/11/8/a111111-1301.jpg"
     )
 
-    val itemsCategory = listOf(
-        Category(1, "Title1", "https://cdn-icons-png.flaticon.com/128/159/159599.png"),
-        Category(2, "Title1", "https://cdn-icons-png.flaticon.com/128/3159/3159461.png"),
-        Category(3, "Title1", "https://cdn-icons-png.flaticon.com/128/1530/1530297.png"),
-        Category(4, "Title1", "https://cdn-icons-png.flaticon.com/128/708/708949.png"),
-        Category(5 ,"Title1", "https://cdn-icons-png.flaticon.com/128/1066/1066276.png"),
-        Category(6, "Title1", "https://cdn-icons-png.flaticon.com/128/3333/3333833.png"),
-        Category(7, "Title1", "https://cdn-icons-png.flaticon.com/128/395/395598.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png"),
-        Category(8, "Title1", "https://cdn-icons-png.flaticon.com/128/3049/3049334.png")
-    )
+    private lateinit var itemsCategory: List<Category>
+
 
     override fun initView() {
+        itemsCategory = listOf(
+            Category(1, getString(R.string.popular), R.drawable.fire),
+            Category(2, getString(R.string.bread), R.drawable.bread),
+            Category(3, getString(R.string.hot_pot), R.drawable.hot),
+            Category(4, getString(R.string.nutrition), R.drawable.noodle),
+            Category(5, getString(R.string.non_alcoholic_drinks), R.drawable.milk),
+            Category(6, getString(R.string.rice), R.drawable.rice),
+            Category(7, getString(R.string.snacks), R.drawable.snacks_popcorn),
+            Category(8, getString(R.string.dessert), R.drawable.cream_cup_dessert),
+            Category(9, getString(R.string.bread_asian), R.drawable.cream_day_ice_2),
+            Category(10, getString(R.string.vegetarian_food), R.drawable.vegetarian),
+            Category(11, getString(R.string.noodle), R.drawable.bowl_food_noodle),
+            Category(12, getString(R.string.porridge), R.drawable.porridge),
+            Category(13, getString(R.string.sea_food), R.drawable.lobster),
+            Category(14, getString(R.string.all), R.drawable.all)
+        )
         initRecyclerView()
     }
 

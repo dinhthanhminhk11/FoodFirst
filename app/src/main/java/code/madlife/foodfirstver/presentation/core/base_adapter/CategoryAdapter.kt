@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import code.madlife.foodfirstver.core.common.loadImage
+import code.madlife.foodfirstver.core.common.loadDrawable
 import code.madlife.foodfirstver.data.model.Category
 import code.madlife.foodfirstver.databinding.ItemCategoryBinding
 
@@ -27,7 +27,7 @@ class CategoryAdapter(private val itemList: List<Category>) :
     class ViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: Category) {
-            loadImage(binding.image.context, item.image, binding.image)
+            loadDrawable(binding.image.context, item.image, binding.image)
             binding.text.text = item.name
         }
     }
