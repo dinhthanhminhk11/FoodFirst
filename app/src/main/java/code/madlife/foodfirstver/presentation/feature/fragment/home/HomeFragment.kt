@@ -2,9 +2,11 @@ package code.madlife.foodfirstver.presentation.feature.fragment.home
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +14,23 @@ import androidx.recyclerview.widget.RecyclerView
 import code.madlife.foodfirstver.MainViewModel
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.data.model.Category
+import code.madlife.foodfirstver.data.model.ItemHome
+import code.madlife.foodfirstver.data.model.Shop
 import code.madlife.foodfirstver.databinding.FragmentHomeBinding
 import code.madlife.foodfirstver.databinding.LayoutBannerViewHomeBinding
 import code.madlife.foodfirstver.databinding.LayoutCategoryViewBinding
+import code.madlife.foodfirstver.databinding.LayoutDefaultHomeBinding
+import code.madlife.foodfirstver.databinding.LayoutHeaderNearFromYourBinding
+import code.madlife.foodfirstver.databinding.LayoutItemShopNearByBinding
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 import code.madlife.foodfirstver.presentation.core.base_adapter.CategoryAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.ImageAutoSliderAdapter
+import code.madlife.foodfirstver.presentation.core.base_adapter.ShopAdapter
+import code.madlife.foodfirstver.presentation.core.base_adapter.StickyHeaderItemDecoration
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.IndicatorView.animation.type.IndicatorAnimationType
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderAnimations
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderView
+import java.util.Calendar
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: MainViewModel by activityViewModels()
@@ -37,24 +47,155 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     )
 
     private lateinit var itemsCategory: List<Category>
+    lateinit var itemsItemHome: List<ItemHome>
 
 
     override fun initView() {
         itemsCategory = listOf(
             Category(1, getString(R.string.popular), R.drawable.fire),
-            Category(2, getString(R.string.bread), R.drawable.bread),
-            Category(3, getString(R.string.hot_pot), R.drawable.hot),
-            Category(4, getString(R.string.nutrition), R.drawable.noodle),
-            Category(5, getString(R.string.non_alcoholic_drinks), R.drawable.milk),
+            Category(4, getString(R.string.noodle_lunch, getTimeOfDay()), R.drawable.noodle),
+            Category(6, getString(R.string.lunch, getTimeOfDay()), R.drawable.bowl_food_noodle),
             Category(6, getString(R.string.rice), R.drawable.rice),
-            Category(7, getString(R.string.snacks), R.drawable.snacks_popcorn),
-            Category(8, getString(R.string.dessert), R.drawable.cream_cup_dessert),
-            Category(9, getString(R.string.bread_asian), R.drawable.cream_day_ice_2),
+            Category(5, getString(R.string.milk_tea), R.drawable.milk),
+            Category(10, getString(R.string.noodle), R.drawable.porridge),
+            Category(10, getString(R.string.partner), R.drawable.vip_svgrepo_com),
             Category(10, getString(R.string.vegetarian_food), R.drawable.vegetarian),
-            Category(11, getString(R.string.noodle), R.drawable.bowl_food_noodle),
-            Category(12, getString(R.string.porridge), R.drawable.porridge),
-            Category(13, getString(R.string.sea_food), R.drawable.lobster),
             Category(14, getString(R.string.all), R.drawable.all)
+        )
+
+        itemsItemHome = listOf(
+            ItemHome(
+                1, "Top quán ratting 5* tuần này", "sdfsdf", listOf(
+                    Shop(
+                        1,
+                        "Cơm thố bà hằng Cơm thố bà hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "Cơm thố sdfs hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "Cơm thốsfsdf bà hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "Cơm thốsdfsdf bà hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "Cơm thsdfsdfố bà hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "Cơm thốsdfsdf bà hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "Cơm thố sdfsdfsdf hằng",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                )
+            ),
+            ItemHome(
+                1, "Ăn sáng ăn trưa", "sdfsdf", listOf(
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                )
+            ),
+            ItemHome(
+                1, "Quán mới lên sàn", "sdfsdf", listOf(
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                    Shop(
+                        1,
+                        "TestSHo1",
+                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
+                    ),
+                )
+            )
         )
         initRecyclerView()
     }
@@ -77,6 +218,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         private val typeBanner = 1
         private val typeCategory = 2
         private val typeDefault = 3
+        private val typeFooterHeader = 4
+        private val typeItemShopNearBy = 5
+
+        fun getItemHome(): Int {
+            return itemsItemHome.size
+        }
+
+        private val fakeItems = List(10) { index ->
+            Shop(index, "Fake Item Title $index", "Fake Item Content $index")
+        }
+
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return when (viewType) {
                 typeBanner -> {
@@ -93,11 +246,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     CategoryViewHolder(view)
                 }
 
+                typeDefault -> {
+                    val view = LayoutDefaultHomeBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    DefaultItemViewHolder(view)
+                }
+
+                typeFooterHeader -> {
+                    val view = LayoutHeaderNearFromYourBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    FooterHeaderViewHolder(view)
+                }
+
+                typeItemShopNearBy -> {
+                    val view = LayoutItemShopNearByBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    NearByItemViewHolder(view)
+                }
+
                 else -> throw IllegalArgumentException("Unknown view type")
             }
         }
 
-        override fun getItemCount(): Int = 2
+        override fun getItemCount(): Int = 2 + itemsItemHome.size + 1 + fakeItems.size
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (holder.itemViewType) {
@@ -111,6 +285,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     categoryViewHolder.bind()
                 }
 
+                typeDefault -> {
+                    val defaultHomeBinding = holder as DefaultItemViewHolder
+                    val item = itemsItemHome[position - 2]
+                    defaultHomeBinding.bind(item)
+                }
+
+                typeFooterHeader -> {
+                    val footerViewHolder = holder as FooterHeaderViewHolder
+                    footerViewHolder.bind()
+                }
+
+                typeItemShopNearBy -> {
+                    val fakeViewHolder = holder as NearByItemViewHolder
+                    val fakeItem = fakeItems[position - (2 + itemsItemHome.size + 1)]
+                    fakeViewHolder.bind(fakeItem)
+                }
             }
         }
 
@@ -118,7 +308,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             return when (position) {
                 0 -> typeBanner
                 1 -> typeCategory
-                else -> throw IllegalArgumentException("Unknown position: $position")
+                2 + itemsItemHome.size -> typeFooterHeader
+                in (2 until 2 + itemsItemHome.size) -> typeDefault
+                else -> typeItemShopNearBy
             }
         }
 
@@ -151,6 +343,86 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             }
         }
+
+        inner class DefaultItemViewHolder(val binding: LayoutDefaultHomeBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            @SuppressLint("SetTextI18n")
+            fun bind(item: ItemHome) {
+                binding.title.text = item.title
+                binding.content.text = item.content
+                binding.recyclerView.apply {
+                    adapter = ShopAdapter(item.listData)
+                    layoutManager =
+                        LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                }
+            }
+        }
+
+        inner class FooterHeaderViewHolder(val binding: LayoutHeaderNearFromYourBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            private var selectedTextViewId: Int? = null
+
+            @SuppressLint("SetTextI18n")
+            fun bind() {
+                setClickListener()
+                checkSelectedTextView()
+            }
+
+            private fun setClickListener() {
+                val textViewList = listOf(binding.nearBy, binding.sellWell, binding.evaluate)
+                for (textView in textViewList) {
+                    textView.setOnClickListener {
+                        selectedTextViewId = it.id
+                        for (tv in textViewList) {
+                            if (tv == it) {
+                                tv.setTextColor(
+                                    ContextCompat.getColor(
+                                        binding.root.context,
+                                        R.color.color_orange
+                                    )
+                                )
+                                tv.setTypeface(null, Typeface.BOLD)
+                            } else {
+                                tv.setTextColor(
+                                    ContextCompat.getColor(
+                                        binding.root.context,
+                                        R.color.gray
+                                    )
+                                )
+                                tv.setTypeface(null, Typeface.NORMAL)
+                            }
+                        }
+                    }
+                }
+            }
+
+            private fun checkSelectedTextView() {
+                when (selectedTextViewId) {
+                    R.id.nearBy -> {
+                    }
+
+                    R.id.sell_well -> {
+
+                    }
+
+                    R.id.evaluate -> {
+
+                    }
+
+                    else -> {
+                    }
+                }
+            }
+        }
+
+        inner class NearByItemViewHolder(val binding: LayoutItemShopNearByBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            @SuppressLint("SetTextI18n")
+            fun bind(item: Shop) {
+//                binding.title.text = item.name
+//                binding.content.text = item.image
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -158,6 +430,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.listViewHome.apply {
             adapter = homeViewAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        }
+        binding.listViewHome.addItemDecoration(StickyHeaderItemDecoration(homeViewAdapter))
+    }
+
+    fun getTimeOfDay(): String {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+
+        return when (hour) {
+            in 5..9 -> "Sáng"
+            in 9..13 -> "Trưa"
+            in 14..17 -> "Chiều"
+            in 18..20 -> "Tối"
+            else -> "Đêm"
         }
     }
 }

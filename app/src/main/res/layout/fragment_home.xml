@@ -16,7 +16,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16dp"
         android:layout_marginTop="@dimen/_3dp"
@@ -58,11 +57,12 @@
         android:textSize="@dimen/_12dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="#F7F7F7"
         android:id="@+id/listViewHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:overScrollMode="never" />
 
 </LinearLayout>

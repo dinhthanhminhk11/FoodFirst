@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_10dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_16dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_120dp"
+        android:layout_weight="0.5"
+        android:scaleType="centerCrop"
+        android:src="@drawable/imagetest" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Gà rán Poey"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sp" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="@dimen/_5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Hà nội"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameCategory"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/imageStar1"
+                android:layout_width="@dimen/_13dp"
+                android:layout_height="@dimen/_13dp"
+                android:layout_marginRight="@dimen/_7dp"
+                android:src="@drawable/ic_star_1" />
+
+            <TextView
+                android:id="@+id/ratting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageStar1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="4.5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sp" />
+
+            <View
+                android:id="@+id/lineNumber1"
+                android:layout_width="1dp"
+                android:layout_height="@dimen/_12dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/ratting"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/lineNumber1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="0.4 km"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sp" />
+
+            <View
+                android:id="@+id/lineNumber2"
+                android:layout_width="1dp"
+                android:layout_height="@dimen/_12dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/distance"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/lineNumber2"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="35 phút"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/nameCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address"
+            android:layout_marginTop="@dimen/_5dp"
+            android:background="@drawable/textview_border"
+            android:maxLines="1"
+            android:padding="3dp"
+            android:text="Gà Rán"
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/_12sp"
+            tools:ignore="SpUsage" />
+    </RelativeLayout>
+</LinearLayout>

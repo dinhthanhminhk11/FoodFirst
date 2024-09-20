@@ -23,6 +23,9 @@
     <string name="password">Mật khẩu</string>
     <string name="out">Thoát</string>
     <string name="register">Đăng ký</string>
+    <string name="near_by">Gần tôi</string>
+    <string name="sell_well">Bán chạy</string>
+    <string name="evaluate">Đánh giá</string>
     <string name="delivered">Giao đến:</string>
     <string name="search">Tìm kiếm</string>
     <string name="find_location">Đang tìm vị trí .....</string>
@@ -89,12 +92,17 @@
     <string name="bread">Bánh truyền thống</string>
     <string name="hot_pot">Lẩu nướng</string>
     <string name="nutrition">Đồ ăn dinh dưỡng</string>
+    <string name="noodle_lunch">Bún, Cơm %s</string>
     <string name="non_alcoholic_drinks">Đồ uống không cồn</string>
+    <string name="milk_tea">Trà sữa</string>
     <string name="rice">Cơm</string>
+    <string name="lunch">Bữa %s</string>
+    <string name="see_more">Xem thêm</string>
     <string name="snacks">Đồ ăn vặt</string>
     <string name="dessert">Tráng miệng</string>
     <string name="bread_asian">Bánh á âu</string>
     <string name="vegetarian_food">Đồ chay</string>
+    <string name="partner">Quán quen</string>
     <string name="noodle">Bún/Phở/Mỳ</string>
     <string name="porridge">Cháo/súp</string>
     <string name="sea_food">Đồ hải sản</string>
