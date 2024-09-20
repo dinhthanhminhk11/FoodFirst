@@ -17,6 +17,7 @@ import code.madlife.foodfirstver.data.model.Category
 import code.madlife.foodfirstver.data.model.ItemHome
 import code.madlife.foodfirstver.data.model.Shop
 import code.madlife.foodfirstver.databinding.FragmentHomeBinding
+import code.madlife.foodfirstver.databinding.ItemEmptyBinding
 import code.madlife.foodfirstver.databinding.LayoutBannerViewHomeBinding
 import code.madlife.foodfirstver.databinding.LayoutCategoryViewBinding
 import code.madlife.foodfirstver.databinding.LayoutDefaultHomeBinding
@@ -24,6 +25,7 @@ import code.madlife.foodfirstver.databinding.LayoutHeaderNearFromYourBinding
 import code.madlife.foodfirstver.databinding.LayoutItemShopNearByBinding
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 import code.madlife.foodfirstver.presentation.core.base_adapter.CategoryAdapter
+import code.madlife.foodfirstver.presentation.core.base_adapter.EmptyHolder
 import code.madlife.foodfirstver.presentation.core.base_adapter.ImageAutoSliderAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.ShopAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.StickyHeaderItemDecoration
@@ -231,43 +233,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val inflate = LayoutInflater.from(context)
             return when (viewType) {
                 typeBanner -> {
-                    val view = LayoutBannerViewHomeBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    BannerViewHolder(view)
+                    BannerViewHolder(LayoutBannerViewHomeBinding.inflate(
+                        inflate, parent, false
+                    ))
                 }
 
                 typeCategory -> {
-                    val view = LayoutCategoryViewBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    CategoryViewHolder(view)
+                    CategoryViewHolder(LayoutCategoryViewBinding.inflate(
+                        inflate, parent, false
+                    ))
                 }
 
                 typeDefault -> {
-                    val view = LayoutDefaultHomeBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    DefaultItemViewHolder(view)
+                    DefaultItemViewHolder(LayoutDefaultHomeBinding.inflate(
+                        inflate, parent, false
+                    ))
                 }
 
                 typeFooterHeader -> {
-                    val view = LayoutHeaderNearFromYourBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    FooterHeaderViewHolder(view)
+                    FooterHeaderViewHolder(LayoutHeaderNearFromYourBinding.inflate(
+                        inflate, parent, false
+                    ))
                 }
 
                 typeItemShopNearBy -> {
-                    val view = LayoutItemShopNearByBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    NearByItemViewHolder(view)
+                    NearByItemViewHolder(LayoutItemShopNearByBinding.inflate(
+                        inflate, parent, false
+                    ))
                 }
 
-                else -> throw IllegalArgumentException("Unknown view type")
+                else ->  EmptyHolder(ItemEmptyBinding.inflate(inflate, parent, false))
             }
         }
 
