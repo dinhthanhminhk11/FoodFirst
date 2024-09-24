@@ -23,6 +23,7 @@ import code.madlife.foodfirstver.databinding.LayoutCategoryViewBinding
 import code.madlife.foodfirstver.databinding.LayoutDefaultHomeBinding
 import code.madlife.foodfirstver.databinding.LayoutHeaderNearFromYourBinding
 import code.madlife.foodfirstver.databinding.LayoutItemShopNearByBinding
+import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 import code.madlife.foodfirstver.presentation.core.base_adapter.CategoryAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.EmptyHolder
@@ -32,8 +33,10 @@ import code.madlife.foodfirstver.presentation.core.base_adapter.StickyHeaderItem
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.IndicatorView.animation.type.IndicatorAnimationType
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderAnimations
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderView
+import code.madlife.foodfirstver.presentation.feature.fragment.category.CategoryFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
-
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var homeViewAdapter: HomeViewAdapter
@@ -236,36 +239,46 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             val inflate = LayoutInflater.from(context)
             return when (viewType) {
                 typeBanner -> {
-                    BannerViewHolder(LayoutBannerViewHomeBinding.inflate(
-                        inflate, parent, false
-                    ))
+                    BannerViewHolder(
+                        LayoutBannerViewHomeBinding.inflate(
+                            inflate, parent, false
+                        )
+                    )
                 }
 
                 typeCategory -> {
-                    CategoryViewHolder(LayoutCategoryViewBinding.inflate(
-                        inflate, parent, false
-                    ))
+                    CategoryViewHolder(
+                        LayoutCategoryViewBinding.inflate(
+                            inflate, parent, false
+                        )
+                    )
                 }
 
                 typeDefault -> {
-                    DefaultItemViewHolder(LayoutDefaultHomeBinding.inflate(
-                        inflate, parent, false
-                    ))
+                    DefaultItemViewHolder(
+                        LayoutDefaultHomeBinding.inflate(
+                            inflate, parent, false
+                        )
+                    )
                 }
 
                 typeFooterHeader -> {
-                    FooterHeaderViewHolder(LayoutHeaderNearFromYourBinding.inflate(
-                        inflate, parent, false
-                    ))
+                    FooterHeaderViewHolder(
+                        LayoutHeaderNearFromYourBinding.inflate(
+                            inflate, parent, false
+                        )
+                    )
                 }
 
                 typeItemShopNearBy -> {
-                    NearByItemViewHolder(LayoutItemShopNearByBinding.inflate(
-                        inflate, parent, false
-                    ))
+                    NearByItemViewHolder(
+                        LayoutItemShopNearByBinding.inflate(
+                            inflate, parent, false
+                        )
+                    )
                 }
 
-                else ->  EmptyHolder(ItemEmptyBinding.inflate(inflate, parent, false))
+                else -> EmptyHolder(ItemEmptyBinding.inflate(inflate, parent, false))
             }
         }
 
@@ -335,7 +348,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             @SuppressLint("SetTextI18n")
             fun bind() {
                 binding.listCategory.apply {
-                    adapter = CategoryAdapter(itemsCategory)
+                    adapter = CategoryAdapter(
+                        itemsCategory,
+                        object : CategoryAdapter.OnItemClickListener {
+                            override fun onItemClick(category: Category) {
+                                NavigationManager.getInstance().openFragment(CategoryFragment())
+                            }
+                        })
                     layoutManager =
                         GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
                 }

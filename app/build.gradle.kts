@@ -118,7 +118,12 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://fe06-113-190-246-18.ngrok-free.app/api/v1/\""
+                "\"https://0730-116-97-243-66.ngrok-free.app/api/v1/\""
+            )
+            buildConfigField(
+                "String",
+                "BASE_URL_IMAGE_CATEGORY",
+                "\"https://mms.img.susercontent.com/\""
             )
             buildConfigField(
                 "String",

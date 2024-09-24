@@ -4,15 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import code.madlife.foodfirstver.core.common.loadDrawable
-import code.madlife.foodfirstver.data.model.Category
+import code.madlife.foodfirstver.core.common.loadImage
+import code.madlife.foodfirstver.data.CategoryRepository
+import code.madlife.foodfirstver.data.model.response.CategoryResponse
 import code.madlife.foodfirstver.databinding.ItemCategoryBinding
 
-class CategoryAdapter(
-    private val itemList: List<Category>,
+
+class TypeRestaurantAdapter(
+    private val itemList: List<CategoryResponse>,
     private val itemClickListener: OnItemClickListener
 ) :
-    RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+    RecyclerView.Adapter<TypeRestaurantAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemCategoryBinding.inflate(
@@ -30,8 +32,8 @@ class CategoryAdapter(
     class ViewHolder(val binding: ItemCategoryBinding, private val listener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(item: Category) {
-            loadDrawable(binding.image.context, item.image, binding.image)
+        fun bind(item: CategoryResponse) {
+            loadImage(binding.image.context, item.image, binding.image)
             binding.text.text = item.name
             binding.root.setOnClickListener {
                 listener.onItemClick(item)
@@ -40,6 +42,6 @@ class CategoryAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(category: Category)
+        fun onItemClick(category: CategoryResponse)
     }
 }

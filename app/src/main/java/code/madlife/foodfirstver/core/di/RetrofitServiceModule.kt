@@ -6,6 +6,7 @@ import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.HeaderRetrofitEnum
 import code.madlife.foodfirstver.core.utils.Utility
 import code.madlife.foodfirstver.data.network.service.AuthService
+import code.madlife.foodfirstver.data.network.service.CategoryService
 import code.madlife.foodfirstver.data.network.service.DemoService
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -90,4 +91,10 @@ class RetrofitServiceModule {
     @Singleton
     fun provideAuthService(@Named(Constants.Inject.AUTH) retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideCategoryService(@Named(Constants.Inject.AUTH) retrofit: Retrofit): CategoryService =
+        retrofit.create(CategoryService::class.java)
 }
