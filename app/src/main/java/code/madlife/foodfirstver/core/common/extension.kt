@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import code.madlife.foodfirstver.BuildConfig
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.presentation.core.widget.toast.CookieBar
 import com.bumptech.glide.Glide
@@ -78,6 +79,18 @@ fun loadImage(context: Context, imageUrl: String?, imageView: ImageView) {
 
     Glide.with(context)
         .load(imageUrl)
+        .apply(options)
+        .into(imageView)
+}
+
+fun loadImageCategory(context: Context, imageUrl: String?, imageView: ImageView) {
+    val options = RequestOptions()
+        .centerCrop()
+        .placeholder(R.drawable.imageloading)
+        .error(R.drawable.imageerror)
+
+    Glide.with(context)
+        .load(BuildConfig.BASE_URL_IMAGE_CATEGORY + imageUrl)
         .apply(options)
         .into(imageView)
 }

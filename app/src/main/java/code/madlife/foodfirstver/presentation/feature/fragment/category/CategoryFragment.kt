@@ -1,24 +1,20 @@
 package code.madlife.foodfirstver.presentation.feature.fragment.category
 
 import android.view.View
-import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import code.madlife.foodfirstver.R
-import code.madlife.foodfirstver.core.common.Constants
-import code.madlife.foodfirstver.core.common.showToastError
-import code.madlife.foodfirstver.data.model.Category
+import code.madlife.foodfirstver.data.model.ParentType
 import code.madlife.foodfirstver.data.model.response.CategoryResponse
 import code.madlife.foodfirstver.databinding.FragmentCategoryBinding
-import code.madlife.foodfirstver.databinding.FragmentFavoriteBinding
 import code.madlife.foodfirstver.presentation.NavigationManager
 import code.madlife.foodfirstver.presentation.core.base.BaseFragment
-import code.madlife.foodfirstver.presentation.core.base_adapter.CategoryAdapter
+import code.madlife.foodfirstver.presentation.core.base_adapter.CategoryParentAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.TypeRestaurantAdapter
-import code.madlife.foodfirstver.presentation.feature.fragment.user.login.AuthState
-import code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.user.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("UNCHECKED_CAST")
@@ -26,11 +22,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryBinding::inflate) {
 
     private val viewModel: CategoryViewModel by viewModels()
-
+    private lateinit var adapterTypeRestaurantAdapter: TypeRestaurantAdapter
+    private lateinit var layoutAnimationController : LayoutAnimationController
     override fun initView() {
         binding.toolbar.setNavigationOnClickListener {
             NavigationManager.getInstance().popBackStack()
         }
+        adapterTypeRestaurantAdapter =
+            TypeRestaurantAdapter(object : TypeRestaurantAdapter.OnItemClickListener {
+                override fun onItemClick(category: ParentType) {
+
+                }
+            })
+
+        layoutAnimationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in)
+        binding.listRestaurantType.layoutAnimation = layoutAnimationController
+
+        binding.listRestaurantType.apply {
+            adapter = adapterTypeRestaurantAdapter
+            layoutManager =
+                GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        }
+
     }
 
     override fun initObserver() {
@@ -50,15 +63,17 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryB
 
                 is CategoryState.Success -> {
                     binding.listParentCategory.apply {
-                        adapter = TypeRestaurantAdapter(
+                        adapter = CategoryParentAdapter(
                             it.data as List<CategoryResponse>,
-                            object : TypeRestaurantAdapter.OnItemClickListener {
+                            object : CategoryParentAdapter.OnItemClickListener {
                                 override fun onItemClick(category: CategoryResponse) {
-//                                    NavigationManager.getInstance().openFragment(CategoryFragment())
+                                    adapterTypeRestaurantAdapter.setData(category.parentType)
+                                    val layoutAnimationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in2)
+                                    binding.listRestaurantType.layoutAnimation = layoutAnimationController
                                 }
                             })
                         layoutManager =
-                            LinearLayoutManager(activity,  GridLayoutManager.VERTICAL, false)
+                            LinearLayoutManager(activity, GridLayoutManager.VERTICAL, false)
                     }
                 }
             }

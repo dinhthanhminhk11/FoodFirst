@@ -4,20 +4,26 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import code.madlife.foodfirstver.core.common.loadImage
-import code.madlife.foodfirstver.data.CategoryRepository
-import code.madlife.foodfirstver.data.model.response.CategoryResponse
-import code.madlife.foodfirstver.databinding.ItemCategoryBinding
+import code.madlife.foodfirstver.core.common.loadImageCategory
+import code.madlife.foodfirstver.data.model.ParentType
+import code.madlife.foodfirstver.databinding.ItemRestaurantTypeBinding
 
 
 class TypeRestaurantAdapter(
-    private val itemList: List<CategoryResponse>,
     private val itemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<TypeRestaurantAdapter.ViewHolder>() {
+    private var itemList: List<ParentType> = listOf()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newItemList: List<ParentType>) {
+        itemList = newItemList
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemCategoryBinding.inflate(
+            ItemRestaurantTypeBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ), itemClickListener
         )
@@ -29,11 +35,11 @@ class TypeRestaurantAdapter(
 
     override fun getItemCount(): Int = itemList.size
 
-    class ViewHolder(val binding: ItemCategoryBinding, private val listener: OnItemClickListener) :
+    class ViewHolder(val binding: ItemRestaurantTypeBinding, private val listener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(item: CategoryResponse) {
-            loadImage(binding.image.context, item.image, binding.image)
+        fun bind(item: ParentType) {
+            loadImageCategory(binding.image.context, item.image, binding.image)
             binding.text.text = item.name
             binding.root.setOnClickListener {
                 listener.onItemClick(item)
@@ -42,6 +48,6 @@ class TypeRestaurantAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(category: CategoryResponse)
+        fun onItemClick(category: ParentType)
     }
 }
