@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import code.madlife.foodfirstver.MainViewModel
 import code.madlife.foodfirstver.R
 import code.madlife.foodfirstver.data.model.Category
-import code.madlife.foodfirstver.data.model.ItemHome
+import code.madlife.foodfirstver.data.model.Result
 import code.madlife.foodfirstver.data.model.Shop
 import code.madlife.foodfirstver.databinding.FragmentHomeBinding
 import code.madlife.foodfirstver.databinding.ItemEmptyBinding
@@ -34,11 +35,14 @@ import code.madlife.foodfirstver.presentation.core.widget.autoimage.IndicatorVie
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderAnimations
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderView
 import code.madlife.foodfirstver.presentation.feature.fragment.category.CategoryFragment
+import code.madlife.foodfirstver.presentation.feature.fragment.category.CategoryState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
+
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: MainViewModel by activityViewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var homeViewAdapter: HomeViewAdapter
     val imageListBanner = listOf(
         "https://i.pinimg.com/originals/e8/96/dd/e896dd155ee52df25df712044d3e4090.jpg",
@@ -52,9 +56,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     )
 
     private lateinit var itemsCategory: List<Category>
-    lateinit var itemsItemHome: List<ItemHome>
-
-
     override fun initView() {
         itemsCategory = listOf(
             Category(1, getString(R.string.popular), R.drawable.fire),
@@ -68,146 +69,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             Category(14, getString(R.string.all), R.drawable.all)
         )
 
-        itemsItemHome = listOf(
-            ItemHome(
-                1, "Top quán ratting 5* tuần này", "sdfsdf", listOf(
-                    Shop(
-                        1,
-                        "Cơm thố bà hằng Cơm thố bà hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "Cơm thố sdfs hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "Cơm thốsfsdf bà hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "Cơm thốsdfsdf bà hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "Cơm thsdfsdfố bà hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "Cơm thốsdfsdf bà hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "Cơm thố sdfsdfsdf hằng",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                )
-            ),
-            ItemHome(
-                1, "Ăn sáng ăn trưa", "sdfsdf", listOf(
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                )
-            ),
-            ItemHome(
-                1, "Quán mới lên sàn", "sdfsdf", listOf(
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                    Shop(
-                        1,
-                        "TestSHo1",
-                        "https://down-bs-vn.img.susercontent.com/vn-11134513-7r98o-lsu25s6y3wd5f2@resize_ss280x175!@crop_w280_h175_cT"
-                    ),
-                )
-            )
-        )
         initRecyclerView()
     }
 
     override fun initObserver() {
         viewModel.addressData.observe(this) {
             binding.nameLocationYourSelf.text = it.toString()
+        }
+
+
+        homeViewModel.listPostHomeMutableLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is RestaurantState.Fail -> {
+
+                }
+
+                RestaurantState.Init -> {
+
+                }
+
+                RestaurantState.Loading -> {
+
+                }
+
+                is RestaurantState.Success -> {
+                    val serverData = it.data as List<Result>
+                    homeViewAdapter.updateItems(serverData)
+                }
+            }
         }
     }
 
@@ -226,8 +115,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         private val typeFooterHeader = 4
         private val typeItemShopNearBy = 5
 
+        private var itemsResult: List<Result> = listOf()
+
+        fun updateItems(newItems: List<Result>) {
+            itemsResult = newItems
+            notifyDataSetChanged()
+        }
         fun getItemHome(): Int {
-            return itemsItemHome.size
+            return itemsResult.size
         }
 
         private val fakeItems = List(10) { index ->
@@ -282,7 +177,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        override fun getItemCount(): Int = 2 + itemsItemHome.size + 1 + fakeItems.size
+        override fun getItemCount(): Int = 2 + itemsResult.size + 1 + fakeItems.size
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (holder.itemViewType) {
@@ -298,7 +193,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 typeDefault -> {
                     val defaultHomeBinding = holder as DefaultItemViewHolder
-                    val item = itemsItemHome[position - 2]
+                    val item = itemsResult[position - 2]
                     defaultHomeBinding.bind(item)
                 }
 
@@ -309,7 +204,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 typeItemShopNearBy -> {
                     val fakeViewHolder = holder as NearByItemViewHolder
-                    val fakeItem = fakeItems[position - (2 + itemsItemHome.size + 1)]
+                    val fakeItem = fakeItems[position - (2 + itemsResult.size + 1)]
                     fakeViewHolder.bind(fakeItem)
                 }
             }
@@ -319,8 +214,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             return when (position) {
                 0 -> typeBanner
                 1 -> typeCategory
-                2 + itemsItemHome.size -> typeFooterHeader
-                in (2 until 2 + itemsItemHome.size) -> typeDefault
+                2 + itemsResult.size -> typeFooterHeader
+                in (2 until 2 + itemsResult.size) -> typeDefault
                 else -> typeItemShopNearBy
             }
         }
@@ -364,11 +259,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         inner class DefaultItemViewHolder(val binding: LayoutDefaultHomeBinding) :
             RecyclerView.ViewHolder(binding.root) {
             @SuppressLint("SetTextI18n")
-            fun bind(item: ItemHome) {
-                binding.title.text = item.title
-                binding.content.text = item.content
+            fun bind(item: Result) {
+                val restaurantList = item.restaurants ?: listOf()
                 binding.recyclerView.apply {
-                    adapter = ShopAdapter(item.listData)
+                    adapter = ShopAdapter(restaurantList)
                     layoutManager =
                         LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 }

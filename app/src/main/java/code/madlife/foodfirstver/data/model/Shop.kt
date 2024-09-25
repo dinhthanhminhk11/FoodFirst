@@ -1,3 +1,3 @@
 package code.madlife.foodfirstver.data.model
 
-data class Shop(val id: Int, val name: String, val image: String)
+data class Shop(val id: Int, val name: String, val avatar: String)

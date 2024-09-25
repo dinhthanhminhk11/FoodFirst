@@ -29,7 +29,7 @@ class ShopAdapter(private val itemList: List<Shop>) :
     class ViewHolder(val binding: ItemShopBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: Shop) {
-            loadImage(binding.image.context, item.image, binding.image)
+            loadImage(binding.image.context, item.avatar, binding.image)
             binding.title.text = item.name
         }
     }
