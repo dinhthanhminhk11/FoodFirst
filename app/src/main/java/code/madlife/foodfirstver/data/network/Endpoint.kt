@@ -10,4 +10,6 @@ object Endpoint {
     const val CHECK_ACCOUNT = "auth/checkAccount"
     const val LOGIN_BY_TOKEN = "auth/loginWithToken"
     const val GET_LIST_CATEGORY_RESTAURANT = "restaurantType/getAllRestaurantType"
+    const val GET_LIST__RESTAURANT_HOME = "restaurant/listRestaurantHomePage"
+    const val GET_LIST__RESTAURANT_HOME_TYPE = "restaurant/listRestaurantHomePageType"
 }

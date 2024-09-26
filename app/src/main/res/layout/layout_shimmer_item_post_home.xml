@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/gradientbackground_white"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:paddingTop="@dimen/_10dp"
+            android:paddingBottom="@dimen/_10dp">
+
+            <RelativeLayout
+                android:id="@+id/contentTextNearFromYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/_250dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/your_shimmer_drawable" />
+
+                <View
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/your_shimmer_drawable" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/_150dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_10dp"
+                android:background="@drawable/your_shimmer_drawable"
+                tools:ignore="ObsoleteLayoutParam,RtlHardcoded" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_gray"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150dp"
+                        android:background="@drawable/your_shimmer_drawable" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/_5dp"
+                        android:background="@drawable/your_shimmer_drawable"
+                        tools:ignore="ObsoleteLayoutParam,RtlHardcoded" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:background="@drawable/background_gray"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150dp"
+                        android:background="@drawable/your_shimmer_drawable" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/_5dp"
+                        android:background="@drawable/your_shimmer_drawable"
+                        tools:ignore="ObsoleteLayoutParam,RtlHardcoded" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</LinearLayout>

@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(private val authRepository: AuthReposito
     val addressData: MutableLiveData<String> = MutableLiveData()
     val ctyData: MutableLiveData<String> = MutableLiveData()
     val authState = MutableLiveData<AuthState>()
+    val locationMutableLiveData = MutableLiveData<Location>()
 
     fun loginByToken(token: String) {
         viewModelScope.launch {
@@ -87,7 +88,7 @@ class MainViewModel @Inject constructor(private val authRepository: AuthReposito
                     locationYouSelf.latitude = lati
 
                     getAddress(context, locationYouSelf.latitude, locationYouSelf.longitude)
-//                    locationYouSelfMutableLiveData.postValue(locationYouSelf)
+                    locationMutableLiveData.postValue(locationYouSelf)
                 }
             }
         }

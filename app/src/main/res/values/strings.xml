@@ -19,6 +19,7 @@
     <string name="text_hour_ago">giờ trước</string>
     <string name="text_day_ago">ngày trước</string>
     <string name="login">Đăng nhập</string>
+    <string name="timeSetUp">%s phút</string>
     <string name="user_name">Email</string>
     <string name="password">Mật khẩu</string>
     <string name="out">Thoát</string>

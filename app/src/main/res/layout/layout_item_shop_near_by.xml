@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Gà rán Poey"
             android:textColor="@color/black"
             android:textSize="@dimen/_16sp" />
 
@@ -43,7 +42,6 @@
             android:layout_marginRight="@dimen/_5dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Hà nội"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sp" />
 
@@ -69,7 +67,6 @@
                 android:layout_toEndOf="@+id/imageStar1"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="4.5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sp" />
 
@@ -90,7 +87,6 @@
                 android:layout_toEndOf="@+id/lineNumber1"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="0.4 km"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sp" />
 
@@ -111,7 +107,6 @@
                 android:layout_toEndOf="@+id/lineNumber2"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="35 phút"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sp" />
         </RelativeLayout>
@@ -125,9 +120,24 @@
             android:background="@drawable/textview_border"
             android:maxLines="1"
             android:padding="3dp"
-            android:text="Gà Rán"
             android:textColor="@color/color_red"
             android:textSize="@dimen/_12sp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/nameCategory1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_toEndOf="@+id/nameCategory"
+            android:background="@drawable/textview_border"
+            android:maxLines="1"
+            android:padding="3dp"
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/_12sp"
+            android:visibility="gone"
             tools:ignore="SpUsage" />
     </RelativeLayout>
 </LinearLayout>

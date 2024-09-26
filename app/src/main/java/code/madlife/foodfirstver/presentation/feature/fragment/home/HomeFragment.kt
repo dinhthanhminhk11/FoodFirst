@@ -3,9 +3,12 @@ package code.madlife.foodfirstver.presentation.feature.fragment.home
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -14,9 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import code.madlife.foodfirstver.MainViewModel
 import code.madlife.foodfirstver.R
+import code.madlife.foodfirstver.core.common.loadImage
 import code.madlife.foodfirstver.data.model.Category
-import code.madlife.foodfirstver.data.model.Result
+import code.madlife.foodfirstver.data.model.ItemRestaurantHome
 import code.madlife.foodfirstver.data.model.Shop
+import code.madlife.foodfirstver.data.model.request.home.HomeRequest
 import code.madlife.foodfirstver.databinding.FragmentHomeBinding
 import code.madlife.foodfirstver.databinding.ItemEmptyBinding
 import code.madlife.foodfirstver.databinding.LayoutBannerViewHomeBinding
@@ -31,11 +36,11 @@ import code.madlife.foodfirstver.presentation.core.base_adapter.EmptyHolder
 import code.madlife.foodfirstver.presentation.core.base_adapter.ImageAutoSliderAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.ShopAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.StickyHeaderItemDecoration
+import code.madlife.foodfirstver.presentation.core.base_adapter.shimmer.ShimmerItemHomePage
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.IndicatorView.animation.type.IndicatorAnimationType
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderAnimations
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderView
 import code.madlife.foodfirstver.presentation.feature.fragment.category.CategoryFragment
-import code.madlife.foodfirstver.presentation.feature.fragment.category.CategoryState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -44,6 +49,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val viewModel: MainViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var homeViewAdapter: HomeViewAdapter
+    private var typeLoadRestaurant = "nearBy"
+    private var typeLoadRestaurantSell = "nearByAndHighPoints"
+    private lateinit var locationYourSelf: Location
     val imageListBanner = listOf(
         "https://i.pinimg.com/originals/e8/96/dd/e896dd155ee52df25df712044d3e4090.jpg",
         "https://i.pinimg.com/736x/1a/e3/2a/1ae32a19d958002c7fb2a99c9a53f012.jpg",
@@ -77,11 +85,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.nameLocationYourSelf.text = it.toString()
         }
 
+        viewModel.locationMutableLiveData.observe(this) {
+            locationYourSelf = it
+            homeViewModel.getListPostHomeType(
+                HomeRequest(
+                    it.longitude,
+                    it.latitude,
+                    typeLoadRestaurant
+                )
+            )
+        }
 
         homeViewModel.listPostHomeMutableLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is RestaurantState.Fail -> {
-
                 }
 
                 RestaurantState.Init -> {
@@ -89,15 +106,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
 
                 RestaurantState.Loading -> {
-
                 }
 
                 is RestaurantState.Success -> {
-                    val serverData = it.data as List<Result>
+                    val serverData = it.data as List<ItemRestaurantHome>
                     homeViewAdapter.updateItems(serverData)
                 }
             }
         }
+
+        homeViewModel.listPostHomeTypeMutableLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is RestaurantState.Fail -> {
+                }
+
+                RestaurantState.Init -> {
+
+                }
+
+                RestaurantState.Loading -> {
+                }
+
+                is RestaurantState.Success -> {
+                    val serverData = it.data as List<Shop>
+                    homeViewAdapter.updateItemsRestaurantType(serverData)
+                }
+            }
+        }
+
     }
 
     override fun getData() {
@@ -115,20 +151,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         private val typeFooterHeader = 4
         private val typeItemShopNearBy = 5
 
-        private var itemsResult: List<Result> = listOf()
+        private var itemsItemRestaurantHome: List<ItemRestaurantHome> = listOf()
+        private var itemListRestaurantType: List<Shop> = listOf()
+        var selectedTextViewId: Int? = null
 
-        fun updateItems(newItems: List<Result>) {
-            itemsResult = newItems
+        @SuppressLint("NotifyDataSetChanged")
+        fun updateItems(newItems: List<ItemRestaurantHome>) {
+            itemsItemRestaurantHome = newItems
             notifyDataSetChanged()
         }
+
+        @SuppressLint("NotifyDataSetChanged")
+        fun updateItemsRestaurantType(newItems: List<Shop>) {
+            itemListRestaurantType = newItems
+            notifyDataSetChanged()
+        }
+
         fun getItemHome(): Int {
-            return itemsResult.size
+            return itemsItemRestaurantHome.size
         }
-
-        private val fakeItems = List(10) { index ->
-            Shop(index, "Fake Item Title $index", "Fake Item Content $index")
-        }
-
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val inflate = LayoutInflater.from(context)
@@ -177,7 +218,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        override fun getItemCount(): Int = 2 + itemsResult.size + 1 + fakeItems.size
+        override fun getItemCount(): Int =
+            2 + itemsItemRestaurantHome.size + 1 + itemListRestaurantType.size
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (holder.itemViewType) {
@@ -193,7 +235,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 typeDefault -> {
                     val defaultHomeBinding = holder as DefaultItemViewHolder
-                    val item = itemsResult[position - 2]
+                    val item = itemsItemRestaurantHome[position - 2]
                     defaultHomeBinding.bind(item)
                 }
 
@@ -204,7 +246,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 typeItemShopNearBy -> {
                     val fakeViewHolder = holder as NearByItemViewHolder
-                    val fakeItem = fakeItems[position - (2 + itemsResult.size + 1)]
+                    val fakeItem =
+                        itemListRestaurantType[position - (2 + itemsItemRestaurantHome.size + 1)]
                     fakeViewHolder.bind(fakeItem)
                 }
             }
@@ -214,8 +257,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             return when (position) {
                 0 -> typeBanner
                 1 -> typeCategory
-                2 + itemsResult.size -> typeFooterHeader
-                in (2 until 2 + itemsResult.size) -> typeDefault
+                2 + itemsItemRestaurantHome.size -> typeFooterHeader
+                in (2 until 2 + itemsItemRestaurantHome.size) -> typeDefault
                 else -> typeItemShopNearBy
             }
         }
@@ -259,7 +302,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         inner class DefaultItemViewHolder(val binding: LayoutDefaultHomeBinding) :
             RecyclerView.ViewHolder(binding.root) {
             @SuppressLint("SetTextI18n")
-            fun bind(item: Result) {
+            fun bind(item: ItemRestaurantHome) {
+                binding.title.text = item.title
+                binding.content.text = item.content
                 val restaurantList = item.restaurants ?: listOf()
                 binding.recyclerView.apply {
                     adapter = ShopAdapter(restaurantList)
@@ -271,13 +316,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         inner class FooterHeaderViewHolder(val binding: LayoutHeaderNearFromYourBinding) :
             RecyclerView.ViewHolder(binding.root) {
-            private var selectedTextViewId: Int? = null
 
             @SuppressLint("SetTextI18n")
             fun bind() {
                 setClickListener()
                 checkSelectedTextView()
             }
+
 
             private fun setClickListener() {
                 val textViewList = listOf(binding.nearBy, binding.sellWell, binding.evaluate)
@@ -310,14 +355,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             private fun checkSelectedTextView() {
                 when (selectedTextViewId) {
                     R.id.nearBy -> {
+                        homeViewModel.getListPostHomeType(
+                            HomeRequest(
+                                locationYourSelf.longitude,
+                                locationYourSelf.latitude,
+                                typeLoadRestaurant
+                            )
+                        )
                     }
 
                     R.id.sell_well -> {
-
+                        homeViewModel.getListPostHomeType(
+                            HomeRequest(
+                                locationYourSelf.longitude,
+                                locationYourSelf.latitude,
+                                typeLoadRestaurantSell
+                            )
+                        )
                     }
 
                     R.id.evaluate -> {
-
+                        homeViewModel.getListPostHomeType(
+                            HomeRequest(
+                                locationYourSelf.longitude,
+                                locationYourSelf.latitude,
+                                typeLoadRestaurantSell
+                            )
+                        )
                     }
 
                     else -> {
@@ -330,9 +394,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             RecyclerView.ViewHolder(binding.root) {
             @SuppressLint("SetTextI18n")
             fun bind(item: Shop) {
-//                binding.title.text = item.name
-//                binding.content.text = item.image
+                binding.name.text = item.name + " - " + item.title
+                binding.address.text = item.address
+                binding.ratting.text = item.points.toString()
+                binding.distance.text = formatDistance(item.distanceKM)
+                binding.time.text = binding.root.context.resources.getString(
+                    R.string.timeSetUp,
+                    item.timeSetUp.toString()
+                )
+                loadImage(binding.image.context, item.avatar, binding.image)
+                binding.nameCategory.text = item.typeRestaurant[0].name
+                if (item.typeRestaurant.size > 1) {
+                    binding.nameCategory1.visibility = View.VISIBLE
+                    binding.nameCategory1.text = item.typeRestaurant[1].name
+                } else {
+                    binding.nameCategory1.visibility = View.GONE
+                }
             }
+        }
+    }
+
+    fun formatDistance(distanceKM: Double): String {
+        return if (distanceKM < 1) {
+            "${(distanceKM * 1000).toInt()} m"
+        } else {
+            String.format("%.2f km", distanceKM)
         }
     }
 
