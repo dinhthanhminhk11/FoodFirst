@@ -310,6 +310,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     layoutManager =
                         LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                 }
+
+                binding.seeMore.setOnClickListener {
+
+                }
             }
         }
 
