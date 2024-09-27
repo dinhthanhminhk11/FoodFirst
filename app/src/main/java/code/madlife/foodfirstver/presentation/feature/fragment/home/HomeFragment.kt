@@ -7,8 +7,6 @@ import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -34,9 +32,9 @@ import code.madlife.foodfirstver.presentation.core.base.BaseFragment
 import code.madlife.foodfirstver.presentation.core.base_adapter.CategoryAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.EmptyHolder
 import code.madlife.foodfirstver.presentation.core.base_adapter.ImageAutoSliderAdapter
+import code.madlife.foodfirstver.presentation.core.base_adapter.OnHeaderSelectionChangedListener
 import code.madlife.foodfirstver.presentation.core.base_adapter.ShopAdapter
 import code.madlife.foodfirstver.presentation.core.base_adapter.StickyHeaderItemDecoration
-import code.madlife.foodfirstver.presentation.core.base_adapter.shimmer.ShimmerItemHomePage
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.IndicatorView.animation.type.IndicatorAnimationType
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderAnimations
 import code.madlife.foodfirstver.presentation.core.widget.autoimage.SliderView
@@ -45,7 +43,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
+    OnHeaderSelectionChangedListener {
     private val viewModel: MainViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var homeViewAdapter: HomeViewAdapter
@@ -153,7 +152,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         private var itemsItemRestaurantHome: List<ItemRestaurantHome> = listOf()
         private var itemListRestaurantType: List<Shop> = listOf()
-        var selectedTextViewId: Int? = null
+        var selectedTextViewId: Int? = R.id.nearBy
 
         @SuppressLint("NotifyDataSetChanged")
         fun updateItems(newItems: List<ItemRestaurantHome>) {
@@ -320,14 +319,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             @SuppressLint("SetTextI18n")
             fun bind() {
                 setClickListener()
-                checkSelectedTextView()
             }
-
 
             private fun setClickListener() {
                 val textViewList = listOf(binding.nearBy, binding.sellWell, binding.evaluate)
                 for (textView in textViewList) {
                     textView.setOnClickListener {
+                        if (selectedTextViewId == it.id) {
+                            return@setOnClickListener
+                        }
                         selectedTextViewId = it.id
                         for (tv in textViewList) {
                             if (tv == it) {
@@ -348,6 +348,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                                 tv.setTypeface(null, Typeface.NORMAL)
                             }
                         }
+                        checkSelectedTextView()
                     }
                 }
             }
@@ -428,7 +429,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             adapter = homeViewAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         }
-        binding.listViewHome.addItemDecoration(StickyHeaderItemDecoration(homeViewAdapter))
+        binding.listViewHome.addItemDecoration(StickyHeaderItemDecoration(homeViewAdapter, this))
     }
 
     fun getTimeOfDay(): String {
@@ -442,5 +443,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             in 18..20 -> "Tối"
             else -> "Đêm"
         }
+    }
+
+    override fun onHeaderSelectionChanged(selectedTextViewId: Int) {
+
     }
 }
