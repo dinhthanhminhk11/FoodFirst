@@ -1,6 +1,7 @@
 package code.madlife.foodfirstver.core.di
 
 import android.content.Context
+import android.os.Build
 import code.madlife.foodfirstver.BuildConfig
 import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.HeaderRetrofitEnum
@@ -31,16 +32,27 @@ import kotlin.text.Typography.dagger
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitServiceModule {
+
+    private fun getDeviceInfo(): String {
+        val manufacturer = Build.MANUFACTURER
+        val model = Build.MODEL
+
+        return "$manufacturer $model"
+    }
+
     private fun getHttpClient(
         context: Context,
         headerRetrofitEnum: HeaderRetrofitEnum = HeaderRetrofitEnum.NONE
     ): OkHttpClient {
         val deviceId = Utility.getDeviceId(context)
+        val userAgent = System.getProperty("http.agent") ?: "Unknown User-Agent"
         return OkHttpClient.Builder().also { client ->
             client.retryOnConnectionFailure(true)
             client.addInterceptor {
                 val newRequest = it.request().newBuilder().apply {
-                    //check enum header in here to set header
+                    header("Device-ID", deviceId)
+                    header("Name-Phone", getDeviceInfo())
+                    header("User-Agent", userAgent)
                 }.build()
                 it.proceed(newRequest)
             }

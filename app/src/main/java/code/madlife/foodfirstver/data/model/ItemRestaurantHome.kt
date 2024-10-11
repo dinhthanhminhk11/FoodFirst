@@ -5,5 +5,6 @@ data class ItemRestaurantHome(
     val id: Int,
     val title: String,
     val content: String,
-    val restaurants: List<Shop>
+    val restaurants: List<Shop>,
+    val type: String
 )
