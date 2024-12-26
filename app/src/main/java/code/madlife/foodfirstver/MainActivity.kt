@@ -35,6 +35,7 @@ class MainActivity : BaseActivity(), FragmentManager.OnBackStackChangedListener 
         NavigationManager.getInstance().init(this, supportFragmentManager, R.id.fragment_container)
 
 
+
         if (checkLocationPermission(this)) {
             viewModel.getCurrentLocation(this)
         } else {

@@ -1,10 +1,12 @@
 package code.madlife.foodfirstver.data.network.data_source
 
 import android.content.Context
+import code.madlife.foodfirstver.Contact
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
 import code.madlife.foodfirstver.data.model.response.auth.LoginResponseNative
 import code.madlife.foodfirstver.data.network.Resource
 import code.madlife.foodfirstver.data.network.service.AuthService
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class AuthDataSource @Inject constructor(private val authService: AuthService, context: Context) :
@@ -36,5 +38,10 @@ class AuthDataSource @Inject constructor(private val authService: AuthService, c
 
     suspend fun loginByToken(token: String): Resource<LoginResponseNative> = safeApiCall {
         authService.loginByToken(token)
+    }
+
+
+    suspend fun fakeLogin(contact: RequestBody): Resource<LoginResponseNative> = safeApiCall {
+        authService.fakeLogin(contact)
     }
 }

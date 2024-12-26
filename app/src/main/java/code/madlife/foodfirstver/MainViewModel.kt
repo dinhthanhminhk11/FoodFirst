@@ -83,13 +83,14 @@ class MainViewModel @Inject constructor(private val authRepository: AuthReposito
                     val latestlocIndex = locationResult.locations.size - 1
                     val lati = locationResult.locations[latestlocIndex].latitude
                     val longi = locationResult.locations[latestlocIndex].longitude
-                    val locationYouSelf = Location("locationYourSelf")
-                    locationYouSelf.longitude = longi
-                    locationYouSelf.latitude = lati
 
-                    getAddress(context, locationYouSelf.latitude, locationYouSelf.longitude)
-                    locationMutableLiveData.postValue(locationYouSelf)
                 }
+                val locationYouSelf = Location("locationYourSelf")
+                locationYouSelf.longitude = 105.8032413
+                locationYouSelf.latitude = 21.0022206
+
+                getAddress(context, locationYouSelf.latitude, locationYouSelf.longitude)
+                locationMutableLiveData.postValue(locationYouSelf)
             }
         }
         LocationServices.getFusedLocationProviderClient(context)

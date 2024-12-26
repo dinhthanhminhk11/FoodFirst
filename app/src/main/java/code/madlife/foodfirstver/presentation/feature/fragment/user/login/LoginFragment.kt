@@ -4,12 +4,21 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import code.madlife.foodfirstver.Capabilities
+import code.madlife.foodfirstver.Contact
+import code.madlife.foodfirstver.DeviceToken
+import code.madlife.foodfirstver.DeviceTokenList
+import code.madlife.foodfirstver.Mode
+import code.madlife.foodfirstver.Options
+import code.madlife.foodfirstver.PhoneNumber
 import code.madlife.foodfirstver.R
+import code.madlife.foodfirstver.TangoDevice
+import code.madlife.foodfirstver.TangoRegistrationRequest
 import code.madlife.foodfirstver.core.common.Constants
 import code.madlife.foodfirstver.core.common.MySharedPreferences
 import code.madlife.foodfirstver.core.common.showToastError
 import code.madlife.foodfirstver.core.common.showToastSuccess
-import code.madlife.foodfirstver.data.model.request.auth.REQLogin
+import code.madlife.foodfirstver.core.utils.Utility
 import code.madlife.foodfirstver.data.model.user.User
 import code.madlife.foodfirstver.data.model.user.UserClient
 import code.madlife.foodfirstver.databinding.FragmentLoginBinding
@@ -20,6 +29,8 @@ import code.madlife.foodfirstver.presentation.feature.fragment.user.otp.OtpFragm
 import code.madlife.foodfirstver.presentation.feature.fragment.user.register.RegisterFragment
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody
 
 
 @AndroidEntryPoint
@@ -60,26 +71,119 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 
         binding.login.setOnClickListener {
-            if (validateInput(binding.username.text.toString(), binding.password.text.toString())) {
-                binding.progressBar.visibility = View.VISIBLE
-                binding.login.isEnabled = false
-                if (isLoginByPass) {
-                    val text =
-                        "{\"email\" : \"${binding.username.text.toString()}\" , \"password\" : \"${binding.password.text.toString()}\"}"
-                    val textEntryPoint = Login.encryptData(text)
-                    viewModel.login(REQLogin(textEntryPoint))
-                } else {
-                    val text =
-                        "{\"email\" : \"${binding.username.text.toString()}\"}"
-                    val textEntryPoint = Login.encryptData(text)
-                    viewModel.checkAccount(REQLogin(textEntryPoint))
-                }
-            }
+            val tangoRegistrationRequest: TangoRegistrationRequest =
+                createFakeTangoRegistrationRequest();
+
+            val byteArray = tangoRegistrationRequest.encode()
+
+            val requestBody = RequestBody.create("application/x-protobuf".toMediaType(), byteArray)
+
+            viewModel.fakeLogin(requestBody)
         }
 
         binding.tvSignUp.setOnClickListener {
             NavigationManager.getInstance().openFragment(RegisterFragment())
         }
+    }
+
+    private fun createFakeTangoRegistrationRequest(): TangoRegistrationRequest {
+        return TangoRegistrationRequest(
+            contact = Contact(
+                phone_number = PhoneNumber(
+                    iso2CountryCode = "vn",
+                    subscriberNumber = "375784487"
+                ),
+                abookSize = 0,
+                device = Utility.getDeviceInfo(),
+                isPhone = true,
+                iso2CountryCode = "vn",
+                linkAccounts = true,
+                locale = "vi_VN"
+            ),
+            tango_device = TangoDevice(
+                deviceId = Utility.getDeviceId(requireActivity()),
+                clientOsVersion = Utility.getAndroidVersion(),
+                clientVersion = "8.79.1732129784",
+                platform = 0
+            ),
+            device_token_list = createDeviceTokenList(),
+            options = Options(
+                allowAccessAddressBook = 0,
+                storeAddressBook = 1
+            ),
+            capabilities = Capabilities(
+                capabilities = createListCapabilities
+            ),
+            applicationId = "tango",
+            mode = Mode.NORMAL,
+            username = "fakeuser",
+            password = "fakepassword",
+            swiftPassword = "fakeswiftpassword",
+            phonenumberOnly = true,
+            requestAuthtokens = false,
+        )
+    }
+
+    private val createListCapabilities = listOf(
+        "twitter_digits.validation",
+        "modalmessage",
+        "UnsolicitedAccountVerificationSMS",
+        "actionmessage-offer-call",
+        "videomail",
+        "textmessage",
+        "imagemessage",
+        "audiomessage",
+        "groupmessage",
+        "externalmessage",
+        "capabilityparsable",
+        "vgood_in_tc",
+        "rrunread",
+        "gift_vgood_pack_in_tc",
+        "tc21",
+        "tc_calllog",
+        "scream",
+        "voip_push_notification",
+        "acme.v1",
+        "cf.acme.v2",
+        "social.v1",
+        "social.v2",
+        "social.v3",
+        "social.v4",
+        "social.v5",
+        "social.v6",
+        "tc.stranger",
+        "tcalttext",
+        "live.social.notification:1",
+        "live.social.private",
+        "live.social.private:2",
+        "live.social.pullevents",
+        "swift:7",
+        "device.linking",
+        "webrtc:1",
+        "ios7.silent.push",
+        "actionmessage",
+        "cloud.profiles.v2",
+        "ValidationCodeViaEmail",
+        "ndigit.sms.validation",
+        "swift:7"
+    )
+
+    fun createDeviceTokenList(inputMap: Map<DeviceTokenType, String>):  DeviceTokenList{
+        val deviceTokens = inputMap.entries.map { entry ->
+            val key = entry.key
+            val value = entry.value
+            val version = if (key == DeviceTokenType.IPHONE) "1.0" else null
+
+            DeviceToken(
+                content = value,
+                type = key.toString(),
+                version = version
+            )
+        }
+
+        return DeviceTokenList(
+            tokens = deviceTokens
+        )
     }
 
     @SuppressLint("UseRequireInsteadOfGet")

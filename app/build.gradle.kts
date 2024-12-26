@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
 //    alias(libs.plugins.gms.googleServices)
     alias(libs.plugins.android.dagger.hilt)
+    alias(libs.plugins.wire)
     alias(libs.plugins.ksp)
     kotlin("kapt")
 }
@@ -118,7 +119,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://54ac-113-160-73-210.ngrok-free.app/api/v1/\""
+                "\"https://e0a6-113-160-45-182.ngrok-free.app/api/v1/\""
             )
             buildConfigField(
                 "String",
@@ -148,6 +149,16 @@ android {
 
 }
 
+wire {
+    sourcePath {
+        srcDir("src/main/proto")
+    }
+    kotlin {
+        out = "build/generated/source/wire"
+    }
+}
+
+
 dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
@@ -156,6 +167,11 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation("androidx.compose.runtime:runtime:1.5.1")
+
+
+    implementation(libs.wire.runtime)
+    implementation(libs.wire.moshi.adapter) // Nếu cần JSON
+
     // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -225,6 +241,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.google.maps.android:android-maps-utils-v3:2.3.0")
     implementation("com.airbnb.android:lottie:4.1.0")
+
+
     // debugImplementation because LeakCanary should only run in debug builds.
 }
-

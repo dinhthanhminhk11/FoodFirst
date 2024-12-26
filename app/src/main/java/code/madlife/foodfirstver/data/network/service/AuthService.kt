@@ -1,8 +1,10 @@
 package code.madlife.foodfirstver.data.network.service
 
+import code.madlife.foodfirstver.Contact
 import code.madlife.foodfirstver.data.model.request.auth.REQLogin
 import code.madlife.foodfirstver.data.model.response.auth.LoginResponseNative
 import code.madlife.foodfirstver.data.network.Endpoint
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -46,5 +48,9 @@ interface AuthService {
     suspend fun loginByToken(
         @Header("access-token-x") token: String
     ): Response<LoginResponseNative>
+
+    @POST(Endpoint.FAKE_LOGIN)
+    suspend fun fakeLogin(@Body requestBody: RequestBody): Response<LoginResponseNative>
+
 
 }

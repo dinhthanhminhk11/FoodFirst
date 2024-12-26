@@ -37,6 +37,8 @@ track = "1.1.2.1"
 viewPagerIndicator = "2.4.1"
 appcompat = "1.7.0"
 material = "1.12.0"
+wireMoshiAdapter = "4.9.2"
+wireRuntime = "4.9.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -51,6 +53,7 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = "com.google.devtools.ksp:1.8.20-1.0.10"
 gms-googleServices = "com.google.gms.google-services:4.3.15"
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.5"
+wire = { id = "com.squareup.wire", version = "4.9.2" }
 
 [libraries]
 android-image-picker = { module = "com.github.esafirm:android-image-picker", version.ref = "androidImagePicker" }
@@ -120,3 +123,5 @@ dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref
 viewPagerIndicator = { module = "com.github.JakeWharton:ViewPagerIndicator", version.ref = "viewPagerIndicator" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+wire-moshi-adapter = { module = "com.squareup.wire:wire-moshi-adapter", version.ref = "wireMoshiAdapter" }
+wire-runtime = { module = "com.squareup.wire:wire-runtime", version.ref = "wireRuntime" }

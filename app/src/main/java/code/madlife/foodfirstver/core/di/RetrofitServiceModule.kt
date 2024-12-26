@@ -12,11 +12,13 @@ import code.madlife.foodfirstver.data.network.service.DemoService
 import code.madlife.foodfirstver.data.network.service.RestaurantService
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.facebook.devicerequests.internal.DeviceRequestsHelper.getDeviceInfo
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,12 +35,33 @@ import kotlin.text.Typography.dagger
 @InstallIn(SingletonComponent::class)
 class RetrofitServiceModule {
 
-    private fun getDeviceInfo(): String {
-        val manufacturer = Build.MANUFACTURER
-        val model = Build.MODEL
 
-        return "$manufacturer $model"
+    private fun getHttpClient2(
+        context: Context,
+        headerRetrofitEnum: HeaderRetrofitEnum = HeaderRetrofitEnum.NONE
+    ): OkHttpClient {
+        val interceptor = Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("Content-Type", "application/x-protobuf")
+                .addHeader("Accept-Encoding", "gzip")
+                .addHeader("xinternalgatewayauthnotrequired", "true")
+                .addHeader("user-agent", "Tango-Android/8.79.1732129784 (samsung; SM-G988N) Android/12")
+                .addHeader("tg-loc-country", "VN")
+                .addHeader("tg-loc-language", "vi")
+                .build()
+
+            chain.proceed(request)
+        }
+        return OkHttpClient.Builder().also { client ->
+            client.retryOnConnectionFailure(true)
+            client.addInterceptor(interceptor)
+            client.connectTimeout(30, TimeUnit.SECONDS)
+            client.readTimeout(30, TimeUnit.SECONDS)
+            client.protocols(Collections.singletonList(Protocol.HTTP_1_1))
+        }.build()
     }
+
 
     private fun getHttpClient(
         context: Context,
@@ -87,11 +110,28 @@ class RetrofitServiceModule {
     @Singleton
     @Named(Constants.Inject.AUTH)
     fun provideRetrofitLogin(gson: Gson, context: Context): Retrofit {
+        val interceptor = Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("Content-Type", "application/x-protobuf")
+                .addHeader("Accept-Encoding", "gzip") //
+                .addHeader("xinternalgatewayauthnotrequired", "true")
+                .addHeader("user-agent", "Tango-Android/8.79.1732129784 (samsung; SM-G988N) Android/12")
+                .addHeader("tg-loc-country", "VN")
+                .addHeader("tg-loc-language", "vi")
+                .build()
+            chain.proceed(request)
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(getHttpClient(context))
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl(BuildConfig.BASE_URL) // Địa chỉ base URL
+            .client(okHttpClient) // Sử dụng OkHttpClient đã cấu hình
+            .addConverterFactory(ScalarsConverterFactory.create()) // Dùng ScalarsConverterFactory nếu cần
+            .addConverterFactory(GsonConverterFactory.create(gson)) // Dùng GsonConverterFactory cho dữ liệu JSON
             .build()
     }
 
